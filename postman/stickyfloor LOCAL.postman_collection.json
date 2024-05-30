@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "2ce808e1-e5f0-41ce-b783-ac2a65cf120b",
+		"name": "stickyfloor LOCAL",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9735075"
+	},
+	"item": [
+		{
+			"name": "stickyfloor.test/api/register",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "James McGlone",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "jamespmcglone@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Password99",
+							"type": "text"
+						},
+						{
+							"key": "c_password\n",
+							"value": "Password99",
+							"type": "default"
+						},
+						{
+							"key": "device_name",
+							"value": "James iPhone",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "stickyfloor.test/api/auth/register",
+					"host": [
+						"stickyfloor",
+						"test"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stickyfloor.test/api/login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "James McGlone",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "jamespmcglone@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Password99",
+							"type": "text"
+						},
+						{
+							"key": "device_name",
+							"value": "James iPhone",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "stickyfloor.test/api/auth/login",
+					"host": [
+						"stickyfloor",
+						"test"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stickyfloor.test/api/user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|PYENBlZ0R6fVdn9BDUNHKVpcXw2nm9QiAwKw4LEh18ac437b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "stickyfloor.test/api/auth/user",
+					"host": [
+						"stickyfloor",
+						"test"
+					],
+					"path": [
+						"api",
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stickyfloor.test/api/logout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer 4|PYENBlZ0R6fVdn9BDUNHKVpcXw2nm9QiAwKw4LEh18ac437b",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "stickyfloor.test/api/auth/logout",
+					"host": [
+						"stickyfloor",
+						"test"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "api health check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "stickyfloor.test/api/health",
+					"host": [
+						"stickyfloor",
+						"test"
+					],
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
