@@ -1,3 +1,4 @@
+import { Dashboard } from "@/pages/dashboard";
 import { createLazyFileRoute } from "@tanstack/react-router";
 import React from "react";
 
@@ -6,9 +7,5 @@ export const Route = createLazyFileRoute("/")({
 });
 
 function Index() {
-    return (
-        <div className="p-2">
-            <h3>Welcome Home!</h3>
-        </div>
-    );
+    return <Dashboard />;
 }
