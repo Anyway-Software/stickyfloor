@@ -6,6 +6,8 @@
         "build": "vite build"
     },
     "devDependencies": {
+        "@tanstack/router-devtools": "^1.34.7",
+        "@tanstack/router-vite-plugin": "^1.34.8",
         "@types/react-dom": "^18.3.0",
         "@vitejs/plugin-react": "^4.3.0",
         "autoprefixer": "^10.4.19",
