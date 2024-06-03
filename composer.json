@@ -9,6 +9,7 @@
         "doctrine/dbal": "^4.0",
         "laravel/framework": "^11.9",
         "laravel/sanctum": "^4.0",
+        "laravel/socialite": "^5.14",
         "laravel/tinker": "^2.9",
         "spatie/laravel-tail": "^4.5"
     },
