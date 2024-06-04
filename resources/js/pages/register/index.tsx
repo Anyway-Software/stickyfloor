@@ -50,14 +50,15 @@ export function Register() {
                     </div>
                 </div>
             </div>
-            <div className="hidden bg-muted lg:block">
-                <img
-                    src="https://anyway.software/_ipx/w_1920,q_75/%2F_next%2Fstatic%2Fmedia%2Fjames.17a849f3.png?url=%2F_next%2Fstatic%2Fmedia%2Fjames.17a849f3.png&w=1920&q=75"
-                    alt="Image"
-                    width="1920"
-                    height="1080"
-                    className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-                />
+            <div 
+                className="hidden bg-muted lg:block"
+                style={{
+                    backgroundImage: 'url("https://anyway.software/_ipx/w_1080,q_75/%2F_next%2Fstatic%2Fmedia%2Ftim.b4f6f12b.jpeg?url=%2F_next%2Fstatic%2Fmedia%2Ftim.b4f6f12b.jpeg&w=1080&q=75")',
+                    backgroundRepeat: 'repeat',
+                    backgroundSize: '100px 100px',
+                    height: '100vh',
+                    width: '100%',
+                }}>
             </div>
         </div>
     );
