@@ -43,7 +43,6 @@ export function Login() {
     const mutation = useMutation({
         mutationFn: loginUser,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["user"] });
             toast({
                 title: "Login Successful",
                 description: "You have successfully logged in.",
