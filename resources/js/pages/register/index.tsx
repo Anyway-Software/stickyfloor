@@ -41,6 +41,11 @@ export function Register() {
                         <Button type="submit" className="w-full">
                             Register
                         </Button>
+                        <a href="/auth/google/redirect">
+                            <Button type="button" className="w-full">
+                                Login with Google
+                            </Button>
+                        </a>
                     </div>
                     <div className="mt-4 text-center text-sm">
                         Already have an account?{" "}
@@ -58,6 +63,7 @@ export function Register() {
                     backgroundSize: '100px 100px',
                     height: '100vh',
                     width: '100%',
+                    rotate: '22deg',
                 }}>
             </div>
         </div>
