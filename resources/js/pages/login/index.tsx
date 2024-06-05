@@ -41,7 +41,7 @@ export function Login() {
                         </Button>
                         <a href="/auth/google/redirect">
                             <Button type="button" className="w-full">
-                                Login with Google
+                                Sign in with Google
                             </Button>
                         </a>
                     </div>
