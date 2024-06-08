@@ -22,7 +22,7 @@ type FormData = z.infer<typeof schema>;
 
 async function loginUser(userData: FormData) {
     const response = await axios.post(
-        "https://stickyfloor.test/api/auth/login",
+        "/api/auth/login",
         userData,
     );
     return response.data;
