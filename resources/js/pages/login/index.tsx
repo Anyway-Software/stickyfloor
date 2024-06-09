@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useToast } from "@/components/ui/use-toast";
+import { api } from '../../api';
 
 const schema = z.object({
     email: z.string().email("Invalid email address"),
@@ -21,8 +22,8 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 async function loginUser(userData: FormData) {
-    const response = await axios.post(
-        "/api/auth/login",
+    const response = await api.post(
+        "/auth/login",
         userData,
     );
     return response.data;
@@ -42,12 +43,13 @@ export function Login() {
 
     const mutation = useMutation({
         mutationFn: loginUser,
-        onSuccess: () => {
+        onSuccess: (data) => {
+            localStorage.setItem('api_token', data.accessToken);
             toast({
                 title: "Login Successful",
                 description: "You have successfully logged in.",
             });
-            navigate({ to: "/" });
+            navigate({ to: "/dashboard" });
         },
         onError: (error) => {
             toast({

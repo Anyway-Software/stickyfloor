@@ -12,6 +12,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Link, useNavigate } from "@tanstack/react-router";
 import { useToast } from "@/components/ui/use-toast";
+import { api } from "../../api"
 
 const schema = z
     .object({
@@ -28,8 +29,8 @@ const schema = z
 type FormData = z.infer<typeof schema>;
 
 async function registerUser(userData: FormData) {
-    const response = await axios.post(
-        "/api/auth/register",
+    const response = await api.post(
+        "/auth/register",
         userData,
     );
     return response.data;
