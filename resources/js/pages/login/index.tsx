@@ -62,6 +62,10 @@ export function Login() {
         mutation.mutate(data);
     };
 
+    // const handleGoogleLogin = () => {
+    //     window.location.href = "/auth/google/redirect";
+    // };
+
     return (
         <QueryClientProvider client={queryClient}>
             <div className="w-full lg:grid lg:min-h-[600px] lg:grid-cols-2 xl:min-h-[800px]">
@@ -115,11 +119,9 @@ export function Login() {
                             <Button type="submit" className="w-full">
                                 Login
                             </Button>
-                            <a href="/auth/google/redirect">
-                                <Button type="button" className="w-full">
-                                    Login with Google
-                                </Button>
-                            </a>
+                            {/* <Button type="button" onClick={handleGoogleLogin} className="w-full">
+                                Sign in with Google
+                            </Button> */}
                         </div>
                         <div className="mt-4 text-center text-sm">
                             Don&apos;t have an account?{" "}

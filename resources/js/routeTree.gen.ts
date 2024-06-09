@@ -18,6 +18,7 @@ import { Route as rootRoute } from './routes/__root'
 
 const RegisterLazyImport = createFileRoute('/register')()
 const LoginLazyImport = createFileRoute('/login')()
+const GoogleCallbackLazyImport = createFileRoute('/google-callback')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
@@ -33,6 +34,13 @@ const LoginLazyRoute = LoginLazyImport.update({
   path: '/login',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/login.lazy').then((d) => d.Route))
+
+const GoogleCallbackLazyRoute = GoogleCallbackLazyImport.update({
+  path: '/google-callback',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/google-callback.lazy').then((d) => d.Route),
+)
 
 const DashboardLazyRoute = DashboardLazyImport.update({
   path: '/dashboard',
@@ -74,6 +82,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLazyImport
       parentRoute: typeof rootRoute
     }
+    '/google-callback': {
+      id: '/google-callback'
+      path: '/google-callback'
+      fullPath: '/google-callback'
+      preLoaderRoute: typeof GoogleCallbackLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/login': {
       id: '/login'
       path: '/login'
@@ -97,6 +112,7 @@ export const routeTree = rootRoute.addChildren({
   IndexLazyRoute,
   AboutLazyRoute,
   DashboardLazyRoute,
+  GoogleCallbackLazyRoute,
   LoginLazyRoute,
   RegisterLazyRoute,
 })
@@ -112,6 +128,7 @@ export const routeTree = rootRoute.addChildren({
         "/",
         "/about",
         "/dashboard",
+        "/google-callback",
         "/login",
         "/register"
       ]
@@ -124,6 +141,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/dashboard": {
       "filePath": "dashboard.lazy.tsx"
+    },
+    "/google-callback": {
+      "filePath": "google-callback.lazy.tsx"
     },
     "/login": {
       "filePath": "login.lazy.tsx"

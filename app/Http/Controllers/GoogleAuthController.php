@@ -1,5 +1,7 @@
 <?php
 
+// app/Http/Controllers/GoogleAuthController.php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -7,16 +9,17 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+
 class GoogleAuthController extends Controller
 {
     public function redirect()
     {
-        return Socialite::driver("google")->redirect();
+        return Socialite::driver("google")->stateless()->redirect();
     }
 
     public function callback()
     {
-        $googleUser = Socialite::driver("google")->user();
+        $googleUser = Socialite::driver("google")->stateless()->setScopes(['profile', 'email'])->user();
         $user = User::updateOrCreate(
             [
                 'google_id' => $googleUser->id
@@ -31,8 +34,11 @@ class GoogleAuthController extends Controller
     
         Auth::login($user);
         
-        session(['user_name' => $user->name]);
-    
-        return redirect(env('APP_URL') . '/dashboard');
+        // Generate a token for the user
+        $token = $user->createToken('Personal Access Token')->plainTextToken;
+
+        // Redirect to the frontend with the token as a query parameter
+        // return redirect(config('app.frontend_url') . '/auth/google/callback?token=' . $token);
+        return redirect(config('app.frontend_url') . '/auth/google/callback');
     }
 }

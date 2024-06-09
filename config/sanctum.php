@@ -46,7 +46,7 @@ return [
     |
     */
 
-    'expiration' => null,
+    'expiration' => 1440, // in minutes, 1440 minutes = 24 hours should give us a sense of when we are getting expired while we are deving i guess? :D
 
     /*
     |--------------------------------------------------------------------------
