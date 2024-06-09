@@ -15,19 +15,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens, HasUUID;
 
-    // public $incrementing = false;
-    // protected $keyType = 'string';
-
-    // protected static function boot()
-    // {
-    //     parent::boot();
-    //     static::creating(function ($model) {
-    //         if (empty($model->{$model->getKeyName()})) {
-    //             $model->{$model->getKeyName()} = (string) Str::uuid();
-    //         }
-    //     });
-    // }
-
     /**
      * The attributes that are mass assignable.
      *
@@ -62,5 +49,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the events for the user.
+     */
+    public function events()
+    {
+        return $this->hasMany(Event::class);
     }
 }

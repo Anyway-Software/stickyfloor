@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from '@tanstack/react-router';
-import { api } from '../../api';
-import { Loading } from '@/components/ui/loading';
+import { useNavigate } from "@tanstack/react-router";
+import { api } from "../../api";
+import { Loading } from "@/components/ui/loading";
 import {
     Activity,
     ArrowUpRight,
@@ -26,11 +26,11 @@ import {
 } from "@/components/ui/card";
 import {
     DropdownMenu,
+    DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
-    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -43,29 +43,48 @@ import {
     TableRow,
 } from "@/components/ui/table";
 
+type Event = {
+    id: string;
+    event_name: string;
+    venue_name: string;
+    event_description: string;
+  };
+
 export function Dashboard() {
     const [userName, setUserName] = useState("");
+    const [events, setEvents] = useState<Event[]>([]);
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
 
     const navigate = useNavigate();
 
     useEffect(() => {
-        api.get('/auth/user')
-            .then(response => {
+        api.get("/auth/user")
+            .then((response) => {
                 setUserName(response.data.name);
-                console.log(response.data);
             })
-            .catch(error => {
-                console.error('Error fetching user data:', error);
+            .catch((error) => {
+                console.error("Error fetching user data:", error);
+            });
+
+        api.get("/events")
+            .then((response) => {
+                setEvents(response.data);
+                if (response.data.length > 0) {
+                    setSelectedEvent(response.data[0]);
+                }
+            })
+            .catch((error) => {
+                console.error("Error fetching events:", error);
             });
     }, [navigate]);
 
     const handleLogout = () => {
-        localStorage.removeItem('api_token');
-        navigate({ to: '/login' });
+        localStorage.removeItem("api_token");
+        navigate({ to: "/login" });
     };
 
     if (!userName) {
-        return  <Loading />
+        return <Loading />;
     }
 
     return (
@@ -163,16 +182,30 @@ export function Dashboard() {
                     </SheetContent>
                 </Sheet>
                 <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-                    <form className="ml-auto flex-1 sm:flex-initial">
-                        <div className="relative">
-                            <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-                            <Input
-                                type="search"
-                                placeholder="Search products..."
-                                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
-                            />
-                        </div>
-                    </form>
+                <form className="ml-auto flex-1 sm:flex-initial flex items-center gap-2 bg-green">
+                    <label htmlFor="event-dropdown" className="text-sm font-medium text-gray-700">
+                        Select one of your events:
+                    </label>
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button variant="outline" className="w-full bg-green" id="event-dropdown">
+                                {selectedEvent ? selectedEvent.event_name : "Select an event"}
+                            </Button>
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            {events.map((event) => (
+                                <DropdownMenuItem
+                                    key={event.id}
+                                    onSelect={() => setSelectedEvent(event)}
+                                >
+                                    {event.event_name}
+                                </DropdownMenuItem>
+                            ))}
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+                </form>
+
+
                     {userName && (
                         <div className="flex items-center gap-2 bg-green px-3">
                             <Avatar>
