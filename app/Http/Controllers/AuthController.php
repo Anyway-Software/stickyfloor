@@ -90,8 +90,8 @@ class AuthController extends Controller
         $token = $tokenResult->plainTextToken;
 
         return response()->json([
-        'accessToken' =>$token,
-        'token_type' => 'Bearer',
+            'accessToken' =>$token,
+            'token_type' => 'Bearer',
         ]);
     }
 
