@@ -1,3 +1,7 @@
+import { useEffect, useState } from "react";
+import { useNavigate } from '@tanstack/react-router';
+import { api } from '../../api';
+import { Loading } from '@/components/ui/loading';
 import {
     Activity,
     ArrowUpRight,
@@ -10,7 +14,6 @@ import {
     Users,
 } from "lucide-react";
 import { Link } from "@tanstack/react-router";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -41,6 +44,30 @@ import {
 } from "@/components/ui/table";
 
 export function Dashboard() {
+    const [userName, setUserName] = useState("");
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        api.get('/auth/user')
+            .then(response => {
+                setUserName(response.data.name);
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }, [navigate]);
+
+    const handleLogout = () => {
+        localStorage.removeItem('api_token');
+        navigate({ to: '/login' });
+    };
+
+    if (!userName) {
+        return  <Loading />
+    }
+
     return (
         <div className="flex min-h-screen w-full flex-col">
             <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
@@ -146,6 +173,14 @@ export function Dashboard() {
                             />
                         </div>
                     </form>
+                    {userName && (
+                        <div className="flex items-center gap-2 bg-green px-3">
+                            <Avatar>
+                                <AvatarFallback>{userName.charAt(0)}</AvatarFallback>
+                            </Avatar>
+                            <span>{userName}</span>
+                        </div>
+                    )}
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button
@@ -165,7 +200,7 @@ export function Dashboard() {
                             <DropdownMenuItem>Settings</DropdownMenuItem>
                             <DropdownMenuItem>Support</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>Logout</DropdownMenuItem>
+                            <DropdownMenuItem onSelect={handleLogout} className="bg-green">Logout</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
