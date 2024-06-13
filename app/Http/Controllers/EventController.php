@@ -13,7 +13,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        $events = auth()->user()->events()->get();
+        $events = auth()->user()->events()->with('ticketCategory')->get();
         return response()->json($events);
     }
 

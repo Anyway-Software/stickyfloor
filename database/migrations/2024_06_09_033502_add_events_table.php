@@ -13,7 +13,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('events', function (Blueprint $table) {
-            $table->uuid('id')->primary()->default(Str::uuid());
+            $table->uuid('id')->primary();
             $table->uuid('user_id');
             $table->string('event_name', 255);
             $table->string('venue_name', 255);
