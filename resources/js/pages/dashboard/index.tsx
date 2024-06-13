@@ -42,13 +42,31 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { Progress } from "@/components/ui/progress";
+import React from "react";
+
+type TicketCategory = {
+    id: string;
+    event_id: string;
+    name: string;
+    description: string;
+    tickets_allocated: number;
+    tickets_sold: number;
+    price: number;
+    start_time: string;
+    end_time: string;
+    area_name: string;
+    created_at: string;
+    updated_at: string;
+};
 
 type Event = {
     id: string;
     event_name: string;
     venue_name: string;
     event_description: string;
-  };
+    ticket_category: TicketCategory[];
+};
 
 export function Dashboard() {
     const [userName, setUserName] = useState("");
@@ -316,28 +334,44 @@ export function Dashboard() {
                                 <TableHeader>
                                     <TableRow>
                                         <TableHead>Event Name</TableHead>
-                                        <TableHead className="">Venue Name</TableHead>
-                                        <TableHead className="">Description</TableHead>
-                                        {/* <TableHead className="hidden xl:table-column">Created At</TableHead> */}
+                                        <TableHead>Venue Name</TableHead>
+                                        <TableHead>Categories</TableHead>
+                                        <TableHead>Revenue</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {events.map(event => (
-                                        <TableRow key={event.id}>
-                                            <TableCell>
-                                                <div className="font-medium">{event.event_name}</div>
-                                            </TableCell>
-                                            <TableCell className="">
-                                                {event.venue_name}
-                                            </TableCell>
-                                            <TableCell className="">
-                                                {event.event_description}
-                                            </TableCell>
-                                            {/* <TableCell className="hidden md:table-cell lg:hidden xl:table-column">
-                                                {new Date(event.created_at).toLocaleDateString()}
-                                            </TableCell> */}
-                                        </TableRow>
-                                    ))}
+                                    {events.map(event => {
+                                        const totalRevenue = event.ticket_category.reduce(
+                                            (acc, ticketCategory) => acc + (ticketCategory.tickets_sold * ticketCategory.price),
+                                            0
+                                        );
+
+                                        return (
+                                            <React.Fragment key={event.id}>
+                                                <TableRow>
+                                                    <TableCell>
+                                                        <div className="font-medium">{event.event_name}</div>
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {event.venue_name}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {event.ticket_category.map(ticketCategory => (
+                                                            <div key={ticketCategory.id} className="mb-4">
+                                                                <strong>{ticketCategory.name}:</strong>
+                                                                <br />
+                                                                <strong>Tickets Sold:</strong> {ticketCategory.tickets_sold} / {ticketCategory.tickets_allocated}
+                                                                <Progress value={(ticketCategory.tickets_sold / ticketCategory.tickets_allocated) * 100} colorScheme="green" size="sm" />
+                                                                <div key={ticketCategory.id} className="mb-4">
+                                                                ${ticketCategory.tickets_sold * ticketCategory.price} / ${ticketCategory.tickets_allocated * ticketCategory.price}
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </TableCell>
+                                                </TableRow>
+                                            </React.Fragment>
+                                        );
+                                    })}
                                 </TableBody>
                             </Table>
                         </CardContent>
