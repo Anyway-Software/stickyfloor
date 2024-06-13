@@ -316,11 +316,10 @@ export function Dashboard() {
                     </Card>
                 </div>
                 <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-                    <Card className="xl:col-span-2" x-chunk="dashboard-01-chunk-4">
+                    <Card className="xl:col-span-2 bg-green" x-chunk="dashboard-01-chunk-4">
                         <CardHeader className="flex flex-row items-center">
                             <div className="grid gap-2">
-                                <CardTitle>Events</CardTitle>
-                                <CardDescription>Your events.</CardDescription>
+                                <CardTitle>Your Events</CardTitle>
                             </div>
                             <Button asChild size="sm" className="ml-auto gap-1">
                                 <Link href="#">
@@ -333,10 +332,9 @@ export function Dashboard() {
                             <Table>
                                 <TableHeader>
                                     <TableRow>
-                                        <TableHead>Event Name</TableHead>
-                                        <TableHead>Venue Name</TableHead>
-                                        <TableHead>Categories</TableHead>
-                                        <TableHead>Revenue</TableHead>
+                                        <TableHead>Event</TableHead>
+                                        <TableHead>Venue</TableHead>
+                                        <TableHead>Ticket Categories</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
