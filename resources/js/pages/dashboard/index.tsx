@@ -144,7 +144,7 @@ export function Dashboard() {
                         href="#"
                         className="text-muted-foreground transition-colors hover:text-foreground"
                     >
-                        Analytics
+                        Analytica
                     </Link>
                 </nav>
                 <Sheet>
