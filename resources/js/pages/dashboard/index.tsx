@@ -333,7 +333,6 @@ export function Dashboard() {
                                 <TableHeader>
                                     <TableRow>
                                         <TableHead>Event</TableHead>
-                                        <TableHead>Venue</TableHead>
                                         <TableHead>Ticket Categories</TableHead>
                                     </TableRow>
                                 </TableHeader>
@@ -348,10 +347,9 @@ export function Dashboard() {
                                             <React.Fragment key={event.id}>
                                                 <TableRow>
                                                     <TableCell>
-                                                        <div className="font-medium">{event.event_name}</div>
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        {event.venue_name}
+                                                        <div className="text-lg font-medium">{event.event_name}</div>
+                                                        <br></br>
+                                                        <div className="text-sm font-medium">{event.venue_name}</div>
                                                     </TableCell>
                                                     <TableCell>
                                                         {event.ticket_category.map(ticketCategory => (
