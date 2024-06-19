@@ -8,6 +8,26 @@
 	"item": [
 		{
 			"name": "stickyfloor.test/api/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON",
+							"let responseJson = pm.response.json();",
+							"",
+							"// Extract the accessToken from the JSON response",
+							"let accessToken = responseJson.accessToken;",
+							"",
+							"// Store the accessToken as a collection variable",
+							"pm.collectionVariables.set(\"token\", accessToken);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -27,7 +47,7 @@
 						},
 						{
 							"key": "email",
-							"value": "jamespmcglone@gmail.com",
+							"value": "james2@test.com",
 							"type": "text"
 						},
 						{
@@ -49,10 +69,9 @@
 					]
 				},
 				"url": {
-					"raw": "stickyfloor.test/api/auth/register",
+					"raw": "{{server}}/api/auth/register",
 					"host": [
-						"stickyfloor",
-						"test"
+						"{{server}}"
 					],
 					"path": [
 						"api",
@@ -65,6 +84,26 @@
 		},
 		{
 			"name": "stickyfloor.test/api/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON",
+							"let responseJson = pm.response.json();",
+							"",
+							"// Extract the accessToken from the JSON response",
+							"let accessToken = responseJson.accessToken;",
+							"",
+							"// Store the accessToken as a collection variable",
+							"pm.collectionVariables.set(\"token\", accessToken);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [
@@ -84,7 +123,7 @@
 						},
 						{
 							"key": "email",
-							"value": "jamespmcglone@gmail.com",
+							"value": "test@stickyfloor.com",
 							"type": "text"
 						},
 						{
@@ -100,10 +139,9 @@
 					]
 				},
 				"url": {
-					"raw": "stickyfloor.test/api/auth/login",
+					"raw": "{{server}}/api/auth/login",
 					"host": [
-						"stickyfloor",
-						"test"
+						"{{server}}"
 					],
 					"path": [
 						"api",
@@ -129,7 +167,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer 4|PYENBlZ0R6fVdn9BDUNHKVpcXw2nm9QiAwKw4LEh18ac437b",
+						"value": "Bearer {{token}}",
 						"type": "text"
 					}
 				],
@@ -138,10 +176,9 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "stickyfloor.test/api/auth/user",
+					"raw": "{{server}}/api/auth/user",
 					"host": [
-						"stickyfloor",
-						"test"
+						"{{server}}"
 					],
 					"path": [
 						"api",
@@ -167,7 +204,7 @@
 					},
 					{
 						"key": "Authorization",
-						"value": "Bearer 4|PYENBlZ0R6fVdn9BDUNHKVpcXw2nm9QiAwKw4LEh18ac437b",
+						"value": "Bearer {{token}}",
 						"type": "text"
 					}
 				],
@@ -176,10 +213,9 @@
 					"formdata": []
 				},
 				"url": {
-					"raw": "stickyfloor.test/api/auth/logout",
+					"raw": "{{server}}/api/auth/logout",
 					"host": [
-						"stickyfloor",
-						"test"
+						"{{server}}"
 					],
 					"path": [
 						"api",
@@ -191,15 +227,204 @@
 			"response": []
 		},
 		{
+			"name": "stickyfloor.test/api/events INDEX EVENTS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{server}}/api/events/",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stickyfloor.test/api/events/:id SHOW EVENT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{server}}/api/events/{{event_id}}",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						"{{event_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stickyfloor.test/api/events/:id STORE EVENT",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_name\": \"New Event\",\n    \"venue_name\": \"New Venue\",\n    \"event_description\": \"New Description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/events",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stickyfloor.test/api/events/:id UPDATE EVENT",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_name\": \"Updated Event\",\n    \"venue_name\": \"Updated Venue\",\n    \"event_description\": \"Updated Description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/events/4acddd0b-c2ea-45f9-bff0-52e42a2227df",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						"4acddd0b-c2ea-45f9-bff0-52e42a2227df"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stickyfloor.test/api/events/:id DESTROY EVENT",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_name\": \"asd\",\n    \"venue_name\": \"zxc\",\n    \"event_description\": \"qwe\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/events/608d0827-65da-4a5b-9b4d-d2983d9b7e7d",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						"608d0827-65da-4a5b-9b4d-d2983d9b7e7d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "api health check",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "stickyfloor.test/api/health",
+					"raw": "{{server}}/api/health",
 					"host": [
-						"stickyfloor",
-						"test"
+						"{{server}}"
 					],
 					"path": [
 						"api",
@@ -208,6 +433,42 @@
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "server",
+			"value": "stickyfloor.test:80"
+		},
+		{
+			"key": "event_id",
+			"value": "fe1e4911-01c6-4ed4-95c8-44926c503139"
 		}
 	]
 }
