@@ -41,16 +41,28 @@ class EventController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Event $event)
+    public function show($id)
     {
+        $event = Event::findOrFail($id);
+
+        if (!$event) {
+            return response()->json(['error' => 'Event not found'], 404);
+        }
+
         return response()->json($event);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Event $event)
+    public function update(Request $request, $id)
     {
+        $event = Event::find($id);
+
+        if (!$event) {
+            return response()->json(['error' => 'Event not found'], 404);
+        }
+
         $request->validate([
             'event_name' => 'required|string|max:255',
             'venue_name' => 'required|string|max:255',
@@ -69,8 +81,14 @@ class EventController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Event $event)
+    public function destroy($id)
     {
+        $event = Event::find($id);
+
+        if (!$event) {
+            return response()->json(['error' => 'Event not found'], 404);
+        }
+
         $event->delete();
         return response()->json(null, 204);
     }
