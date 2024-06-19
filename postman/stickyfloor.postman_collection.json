@@ -1,0 +1,474 @@
+{
+	"info": {
+		"_postman_id": "2ce808e1-e5f0-41ce-b783-ac2a65cf120b",
+		"name": "stickyfloor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9735075"
+	},
+	"item": [
+		{
+			"name": "/api/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON",
+							"let responseJson = pm.response.json();",
+							"",
+							"// Extract the accessToken from the JSON response",
+							"let accessToken = responseJson.accessToken;",
+							"",
+							"// Store the accessToken as a collection variable",
+							"pm.collectionVariables.set(\"token\", accessToken);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "James McGlone",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "james2@test.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Password99",
+							"type": "text"
+						},
+						{
+							"key": "c_password\n",
+							"value": "Password99",
+							"type": "default"
+						},
+						{
+							"key": "device_name",
+							"value": "James iPhone",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/api/auth/register",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the response body as JSON",
+							"let responseJson = pm.response.json();",
+							"",
+							"// Extract the accessToken from the JSON response",
+							"let accessToken = responseJson.accessToken;",
+							"",
+							"// Store the accessToken as a collection variable",
+							"pm.collectionVariables.set(\"token\", accessToken);",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "James McGlone",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "test@stickyfloor.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "Password99",
+							"type": "text"
+						},
+						{
+							"key": "device_name",
+							"value": "James iPhone",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{server}}/api/auth/login",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/user",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{server}}/api/auth/user",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/logout",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{server}}/api/auth/logout",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/events INDEX EVENTS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{server}}/api/events/",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/events/:id SHOW EVENT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{server}}/api/events/{{event_id}}",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						"{{event_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/events/:id STORE EVENT",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_name\": \"New Event\",\n    \"venue_name\": \"New Venue\",\n    \"event_description\": \"New Description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/events",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/events/:id UPDATE EVENT",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_name\": \"Updated Event\",\n    \"venue_name\": \"Updated Venue\",\n    \"event_description\": \"Updated Description\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/events/4acddd0b-c2ea-45f9-bff0-52e42a2227df",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						"4acddd0b-c2ea-45f9-bff0-52e42a2227df"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/events/:id DESTROY EVENT",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"event_name\": \"asd\",\n    \"venue_name\": \"zxc\",\n    \"event_description\": \"qwe\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/events/608d0827-65da-4a5b-9b4d-d2983d9b7e7d",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						"608d0827-65da-4a5b-9b4d-d2983d9b7e7d"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}/api/health",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"health"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "server",
+			"value": "stickyfloor.test:80"
+		},
+		{
+			"key": "event_id",
+			"value": "fe1e4911-01c6-4ed4-95c8-44926c503139"
+		}
+	]
+}
