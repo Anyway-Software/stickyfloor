@@ -1,38 +1,16 @@
-import { useEffect, useState } from "react";
-import { useNavigate } from "@tanstack/react-router";
-import { api } from "../../api";
-import { Loading } from "@/components/ui/loading";
-import {
-    Activity,
-    ArrowUpRight,
-    CircleUser,
-    CreditCard,
-    DollarSign,
-    Menu,
-    Package2,
-    Search,
-    Users,
-} from "lucide-react";
-import { Link } from "@tanstack/react-router";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
     DropdownMenu,
-    DropdownMenuTrigger,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuLabel,
     DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+import { Loading } from "@/components/ui/loading";
+import { Progress } from "@/components/ui/progress";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import {
     Table,
@@ -42,8 +20,19 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
-import { Progress } from "@/components/ui/progress";
-import React from "react";
+import { Link, useNavigate } from "@tanstack/react-router";
+import {
+    Activity,
+    ArrowUpRight,
+    CircleUser,
+    CreditCard,
+    DollarSign,
+    Menu,
+    Package2,
+    Users,
+} from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { api } from "../../api";
 
 type TicketCategory = {
     id: string;
@@ -200,34 +189,44 @@ export function Dashboard() {
                     </SheetContent>
                 </Sheet>
                 <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-                <form className="ml-auto flex-1 sm:flex-initial flex items-center gap-2 bg-green">
-                    <label htmlFor="event-dropdown" className="text-sm font-medium text-gray-700">
-                        Select one of your events:
-                    </label>
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <Button variant="outline" className="w-full bg-green" id="event-dropdown">
-                                {selectedEvent ? selectedEvent.event_name : "Select an event"}
-                            </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent>
-                            {events.map((event) => (
-                                <DropdownMenuItem
-                                    key={event.id}
-                                    onSelect={() => setSelectedEvent(event)}
+                    <form className="ml-auto flex-1 sm:flex-initial flex items-center gap-2 bg-green">
+                        <label
+                            htmlFor="event-dropdown"
+                            className="text-sm font-medium text-gray-700"
+                        >
+                            Select one of your events:
+                        </label>
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className="w-full bg-green"
+                                    id="event-dropdown"
                                 >
-                                    {event.event_name}
-                                </DropdownMenuItem>
-                            ))}
-                        </DropdownMenuContent>
-                    </DropdownMenu>
-                </form>
-
+                                    {selectedEvent
+                                        ? selectedEvent.event_name
+                                        : "Select an event"}
+                                </Button>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent>
+                                {events.map((event) => (
+                                    <DropdownMenuItem
+                                        key={event.id}
+                                        onSelect={() => setSelectedEvent(event)}
+                                    >
+                                        {event.event_name}
+                                    </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                        </DropdownMenu>
+                    </form>
 
                     {userName && (
                         <div className="flex items-center gap-2 bg-green px-3">
                             <Avatar>
-                                <AvatarFallback>{userName.charAt(0)}</AvatarFallback>
+                                <AvatarFallback>
+                                    {userName.charAt(0)}
+                                </AvatarFallback>
                             </Avatar>
                             <span>{userName}</span>
                         </div>
@@ -251,7 +250,12 @@ export function Dashboard() {
                             <DropdownMenuItem>Settings</DropdownMenuItem>
                             <DropdownMenuItem>Support</DropdownMenuItem>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onSelect={handleLogout} className="bg-green">Logout</DropdownMenuItem>
+                            <DropdownMenuItem
+                                onSelect={handleLogout}
+                                className="bg-green"
+                            >
+                                Logout
+                            </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
@@ -316,7 +320,10 @@ export function Dashboard() {
                     </Card>
                 </div>
                 <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
-                    <Card className="xl:col-span-2 bg-green" x-chunk="dashboard-01-chunk-4">
+                    <Card
+                        className="xl:col-span-2 bg-green"
+                        x-chunk="dashboard-01-chunk-4"
+                    >
                         <CardHeader className="flex flex-row items-center">
                             <div className="grid gap-2">
                                 <CardTitle>Your Events</CardTitle>
@@ -337,32 +344,82 @@ export function Dashboard() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {events.map(event => {
-                                        const totalRevenue = event.ticket_category.reduce(
-                                            (acc, ticketCategory) => acc + (ticketCategory.tickets_sold * ticketCategory.price),
-                                            0
-                                        );
+                                    {events.map((event) => {
+                                        const totalRevenue =
+                                            event.ticket_category.reduce(
+                                                (acc, ticketCategory) =>
+                                                    acc +
+                                                    ticketCategory.tickets_sold *
+                                                        ticketCategory.price,
+                                                0,
+                                            );
 
                                         return (
                                             <React.Fragment key={event.id}>
                                                 <TableRow>
                                                     <TableCell>
-                                                        <div className="text-lg font-medium">{event.event_name}</div>
+                                                        <div className="text-lg font-medium">
+                                                            {event.event_name}
+                                                        </div>
                                                         <br></br>
-                                                        <div className="text-sm font-medium">{event.venue_name}</div>
+                                                        <div className="text-sm font-medium">
+                                                            {event.venue_name}
+                                                        </div>
                                                     </TableCell>
                                                     <TableCell>
-                                                        {event.ticket_category.map(ticketCategory => (
-                                                            <div key={ticketCategory.id} className="mb-4">
-                                                                <strong>{ticketCategory.name}:</strong>
-                                                                <br />
-                                                                <strong>Tickets Sold:</strong> {ticketCategory.tickets_sold} / {ticketCategory.tickets_allocated}
-                                                                <Progress value={(ticketCategory.tickets_sold / ticketCategory.tickets_allocated) * 100} colorScheme="green" size="sm" />
-                                                                <div key={ticketCategory.id} className="mb-4">
-                                                                ${ticketCategory.tickets_sold * ticketCategory.price} / ${ticketCategory.tickets_allocated * ticketCategory.price}
+                                                        {event.ticket_category.map(
+                                                            (
+                                                                ticketCategory,
+                                                            ) => (
+                                                                <div
+                                                                    key={
+                                                                        ticketCategory.id
+                                                                    }
+                                                                    className="mb-4"
+                                                                >
+                                                                    <strong>
+                                                                        {
+                                                                            ticketCategory.name
+                                                                        }
+                                                                        :
+                                                                    </strong>
+                                                                    <br />
+                                                                    <strong>
+                                                                        Tickets
+                                                                        Sold:
+                                                                    </strong>{" "}
+                                                                    {
+                                                                        ticketCategory.tickets_sold
+                                                                    }{" "}
+                                                                    /{" "}
+                                                                    {
+                                                                        ticketCategory.tickets_allocated
+                                                                    }
+                                                                    <Progress
+                                                                        value={
+                                                                            (ticketCategory.tickets_sold /
+                                                                                ticketCategory.tickets_allocated) *
+                                                                            100
+                                                                        }
+                                                                        colorScheme="green"
+                                                                        size="sm"
+                                                                    />
+                                                                    <div
+                                                                        key={
+                                                                            ticketCategory.id
+                                                                        }
+                                                                        className="mb-4"
+                                                                    >
+                                                                        $
+                                                                        {ticketCategory.tickets_sold *
+                                                                            ticketCategory.price}{" "}
+                                                                        / $
+                                                                        {ticketCategory.tickets_allocated *
+                                                                            ticketCategory.price}
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        ))}
+                                                            ),
+                                                        )}
                                                     </TableCell>
                                                 </TableRow>
                                             </React.Fragment>
