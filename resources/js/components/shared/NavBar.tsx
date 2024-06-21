@@ -45,10 +45,11 @@ import {
 export function NavShell({ children }: { children: any }) {
     return (
         <div className="grid h-screen w-full pl-[53px]">
-            <aside className="inset-y fixed  left-0 z-20 flex h-full flex-col border-r">
+            <aside className="inset-y fixed left-0 z-20 flex h-full flex-col border-r">
                 <div className="border-b p-2">
                     <Button variant="outline" size="icon" aria-label="Home">
-                        <FootprintsIcon className="size-5 fill-foreground" />
+                        {/* <FootprintsIcon className="size-5 fill-foreground" /> */}
+                        <img src="/logo.webp" />
                     </Button>
                 </div>
                 <TooltipProvider>
@@ -179,7 +180,7 @@ export function NavShell({ children }: { children: any }) {
                 </TooltipProvider>
             </aside>
             <div className="flex flex-col">
-                <header className="sticky top-0 z-10 flex h-[57px] items-center gap-1 border-b bg-background px-4">
+                <header className="sticky top-0 z-10 flex h-[62px] items-center gap-1 border-b bg-background px-4">
                     <h1 className="text-xl font-semibold">StickyFloor</h1>
                     <Drawer>
                         <DrawerTrigger asChild>
