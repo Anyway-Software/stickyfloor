@@ -1,5 +1,3 @@
-import React from "react";
-import { Control, Controller, useFieldArray } from "react-hook-form";
 import {
     Card,
     CardContent,
@@ -20,18 +18,8 @@ import {
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import { EventSchema } from "../util/EventSchema";
 
-interface TicketDetailsCardProps {
-    control: Control<EventSchema>;
-}
-
-export function TicketDetailsCard({ control }: TicketDetailsCardProps) {
-    const { fields, append } = useFieldArray({
-        control,
-        name: "tickets",
-    });
-
+export function TicketDetailsCard() {
     return (
         <Card>
             <CardHeader>
@@ -50,49 +38,65 @@ export function TicketDetailsCard({ control }: TicketDetailsCardProps) {
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {fields.map((field, index) => (
-                            <TableRow key={field.id}>
-                                <TableCell className="font-semibold">
-                                    <Controller
-                                        name={`tickets.${index}.type`}
-                                        control={control}
-                                        render={({ field }) => (
-                                            <Input {...field} />
-                                        )}
-                                    />
-                                </TableCell>
-                                <TableCell>
-                                    <Controller
-                                        name={`tickets.${index}.price`}
-                                        control={control}
-                                        render={({ field }) => (
-                                            <Input type="number" {...field} />
-                                        )}
-                                    />
-                                </TableCell>
-                                <TableCell>
-                                    <Controller
-                                        name={`tickets.${index}.availability`}
-                                        control={control}
-                                        render={({ field }) => (
-                                            <Input type="number" {...field} />
-                                        )}
-                                    />
-                                </TableCell>
-                            </TableRow>
-                        ))}
+                        <TableRow>
+                            <TableCell className="font-semibold">VIP</TableCell>
+                            <TableCell>
+                                <Label htmlFor="price-1" className="sr-only">
+                                    Price
+                                </Label>
+                                <Input
+                                    id="price-1"
+                                    type="number"
+                                    defaultValue="150"
+                                />
+                            </TableCell>
+                            <TableCell>
+                                <Label
+                                    htmlFor="availability-1"
+                                    className="sr-only"
+                                >
+                                    Availability
+                                </Label>
+                                <Input
+                                    id="availability-1"
+                                    type="number"
+                                    defaultValue="50"
+                                />
+                            </TableCell>
+                        </TableRow>
+                        <TableRow>
+                            <TableCell className="font-semibold">
+                                General
+                            </TableCell>
+                            <TableCell>
+                                <Label htmlFor="price-2" className="sr-only">
+                                    Price
+                                </Label>
+                                <Input
+                                    id="price-2"
+                                    type="number"
+                                    defaultValue="50"
+                                />
+                            </TableCell>
+                            <TableCell>
+                                <Label
+                                    htmlFor="availability-2"
+                                    className="sr-only"
+                                >
+                                    Availability
+                                </Label>
+                                <Input
+                                    id="availability-2"
+                                    type="number"
+                                    defaultValue="200"
+                                />
+                            </TableCell>
+                        </TableRow>
                     </TableBody>
                 </Table>
             </CardContent>
             <CardFooter className="justify-center border-t p-4">
-                <Button
-                    size="sm"
-                    variant="ghost"
-                    className="gap-1"
-                    onClick={() =>
-                        append({ type: "", price: 0, availability: 0 })
-                    }
-                >
+                <Button size="sm" variant="ghost" className="gap-1">
                     <PlusCircle className="h-3.5 w-3.5" />
                     Add Ticket Type
                 </Button>
