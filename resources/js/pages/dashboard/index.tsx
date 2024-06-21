@@ -51,9 +51,9 @@ type TicketCategory = {
 
 type Event = {
     id: string;
-    event_name: string;
+    name: string;
     venue_name: string;
-    event_description: string;
+    description: string;
     ticket_category: TicketCategory[];
 };
 
@@ -204,7 +204,7 @@ export function Dashboard() {
                                     id="event-dropdown"
                                 >
                                     {selectedEvent
-                                        ? selectedEvent.event_name
+                                        ? selectedEvent.name
                                         : "Select an event"}
                                 </Button>
                             </DropdownMenuTrigger>
@@ -214,7 +214,7 @@ export function Dashboard() {
                                         key={event.id}
                                         onSelect={() => setSelectedEvent(event)}
                                     >
-                                        {event.event_name}
+                                        {event.name}
                                     </DropdownMenuItem>
                                 ))}
                             </DropdownMenuContent>
@@ -359,7 +359,7 @@ export function Dashboard() {
                                                 <TableRow>
                                                     <TableCell>
                                                         <div className="text-lg font-medium">
-                                                            {event.event_name}
+                                                            {event.name}
                                                         </div>
                                                         <br></br>
                                                         <div className="text-sm font-medium">

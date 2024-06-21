@@ -41,7 +41,7 @@ class DatabaseSeeder extends Seeder
         // });
 
         Event::factory()->create([
-            'event_name' => 'Blazing Swan',
+            'name' => 'Blazing Swan',
             'venue_name' => 'Kulin Racecourse',
             'user_id' => $user->id,
         ])->each(function ($event) {
@@ -63,7 +63,7 @@ class DatabaseSeeder extends Seeder
         });
 
         Event::factory()->create([
-            'event_name' => 'Toasty Beats',
+            'name' => 'Toasty Beats',
             'venue_name' => 'Vinyl Cafe',
             'user_id' => $user->id,
         ])->each(function ($event) {
@@ -76,15 +76,15 @@ class DatabaseSeeder extends Seeder
         // $user->events()->createMany([
         //     [
         //         'id' => Str::uuid(),
-        //         'event_name' => 'Event 1',
+        //         'name' => 'Event 1',
         //         'venue_name' => 'Venue 1',
-        //         'event_description' => 'Description 1',
+        //         'description' => 'Description 1',
         //     ],
         //     [
         //         'id' => Str::uuid(),
-        //         'event_name' => 'Event 2',
+        //         'name' => 'Event 2',
         //         'venue_name' => 'Venue 2',
-        //         'event_description' => 'Description 2',
+        //         'description' => 'Description 2',
         //     ],
         // ]);
     }

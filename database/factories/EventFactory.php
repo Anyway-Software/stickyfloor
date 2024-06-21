@@ -24,9 +24,11 @@ class EventFactory extends Factory
         return [
             'id' => Str::uuid(),
             'user_id' => User::factory(),
-            'event_name' => $this->faker->sentence,
-            'venue_name' => $this->faker->sentence,
-            'event_description' => $this->faker->paragraph,
+            'name' => $this->faker->catchPhrase(),
+            'description' => $this->faker->paragraphs(3, true),
+            'venue_name' => $this->faker->colorName() . ' ' . $this->faker->word() . ' Hall',
+            'venue_address' => $this->faker->address,
+            'start' => $this->faker->dateTimeBetween('+3 months', '+1 year'),
         ];
     }
 }

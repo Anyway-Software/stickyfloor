@@ -15,9 +15,11 @@ return new class extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->uuid('user_id');
-            $table->string('event_name', 255);
-            $table->string('venue_name', 255);
-            $table->longText('event_description');
+            $table->string('name', 255);
+            $table->longText('description')->nullable();
+            $table->string('venue_name', 255)->nullable();
+            $table->string('venue_address', 255)->nullable();
+            $table->timestamp('start')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

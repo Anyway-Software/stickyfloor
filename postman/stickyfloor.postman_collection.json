@@ -318,7 +318,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"event_name\": \"New Event\",\n    \"venue_name\": \"New Venue\",\n    \"event_description\": \"New Description\"\n}",
+					"raw": "{\n    \"name\": \"New Event\",\n    \"venue_name\": \"New Venue\",\n    \"description\": \"New Description\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -356,7 +356,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"event_name\": \"Updated Event\",\n    \"venue_name\": \"Updated Venue\",\n    \"event_description\": \"Updated Description\"\n}",
+					"raw": "{\n    \"name\": \"Updated Event\",\n    \"venue_name\": \"Updated Venue\",\n    \"description\": \"Updated Description\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -395,7 +395,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"event_name\": \"asd\",\n    \"venue_name\": \"zxc\",\n    \"event_description\": \"qwe\"\n}",
+					"raw": "{\n    \"name\": \"asd\",\n    \"venue_name\": \"zxc\",\n    \"description\": \"qwe\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"

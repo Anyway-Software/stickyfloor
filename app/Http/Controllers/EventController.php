@@ -23,16 +23,16 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'event_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'venue_name' => 'required|string|max:255',
-            'event_description' => 'required|string',
+            'description' => 'required|string',
         ]);
 
         $event = Event::create([
             'user_id' => Auth::id(),
-            'event_name' => $request->event_name,
+            'name' => $request->name,
             'venue_name' => $request->venue_name,
-            'event_description' => $request->event_description,
+            'description' => $request->description,
         ]);
 
         return response()->json($event, 201);
@@ -64,15 +64,15 @@ class EventController extends Controller
         }
 
         $request->validate([
-            'event_name' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'venue_name' => 'required|string|max:255',
-            'event_description' => 'required|string',
+            'description' => 'required|string',
         ]);
 
         $event->update([
-            'event_name' => $request->event_name,
+            'name' => $request->name,
             'venue_name' => $request->venue_name,
-            'event_description' => $request->event_description,
+            'description' => $request->description,
         ]);
 
         return response()->json($event);
