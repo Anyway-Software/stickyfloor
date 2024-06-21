@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import {
     ChevronLeft,
     Home,
@@ -5,14 +6,11 @@ import {
     Package,
     Package2,
     PanelLeft,
-    PlusCircle,
     Search,
     Settings,
     ShoppingCart,
-    Upload,
     Users2,
 } from "lucide-react";
-import { Link } from "@tanstack/react-router";
 
 import { Badge } from "@/components/ui/badge";
 import {
@@ -25,14 +23,6 @@ import {
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
 import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from "@/components/ui/card";
-import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
@@ -41,31 +31,19 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import {
-    Table,
-    TableBody,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
-} from "@/components/ui/table";
-import { Textarea } from "@/components/ui/textarea";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { ArchiveEventCard } from "./components/ArchiveEventCard";
+import { EventCategoryCard } from "./components/EventCategoryCard";
+import { EventDetailsCard } from "./components/EventDetailsCard";
+import { EventImagesCard } from "./components/EventImagesCard";
+import { EventStatusCard } from "./components/EventStatusCard";
+import { TicketDetailsCard } from "./components/TicketDetailsCard";
 
 export function CreateEvent() {
     return (
@@ -311,292 +289,14 @@ export function CreateEvent() {
                         </div>
                         <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
                             <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
-                                <Card x-chunk="dashboard-07-chunk-0">
-                                    <CardHeader>
-                                        <CardTitle>Event Details</CardTitle>
-                                        <CardDescription>
-                                            Provide the necessary details for
-                                            the event.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="grid gap-6">
-                                            <div className="grid gap-3">
-                                                <Label htmlFor="name">
-                                                    Event Name
-                                                </Label>
-                                                <Input
-                                                    id="name"
-                                                    type="text"
-                                                    className="w-full"
-                                                    defaultValue="Music Concert"
-                                                />
-                                            </div>
-                                            <div className="grid gap-3">
-                                                <Label htmlFor="description">
-                                                    Event Description
-                                                </Label>
-                                                <Textarea
-                                                    id="description"
-                                                    defaultValue="Join us for an evening of amazing music and entertainment."
-                                                    className="min-h-32"
-                                                />
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                                <Card x-chunk="dashboard-07-chunk-1">
-                                    <CardHeader>
-                                        <CardTitle>Ticket Details</CardTitle>
-                                        <CardDescription>
-                                            Specify the ticket types and prices.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <Table>
-                                            <TableHeader>
-                                                <TableRow>
-                                                    <TableHead className="w-[100px]">
-                                                        Type
-                                                    </TableHead>
-                                                    <TableHead>Price</TableHead>
-                                                    <TableHead>
-                                                        Availability
-                                                    </TableHead>
-                                                </TableRow>
-                                            </TableHeader>
-                                            <TableBody>
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        VIP
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Label
-                                                            htmlFor="price-1"
-                                                            className="sr-only"
-                                                        >
-                                                            Price
-                                                        </Label>
-                                                        <Input
-                                                            id="price-1"
-                                                            type="number"
-                                                            defaultValue="150"
-                                                        />
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Label
-                                                            htmlFor="availability-1"
-                                                            className="sr-only"
-                                                        >
-                                                            Availability
-                                                        </Label>
-                                                        <Input
-                                                            id="availability-1"
-                                                            type="number"
-                                                            defaultValue="50"
-                                                        />
-                                                    </TableCell>
-                                                </TableRow>
-                                                <TableRow>
-                                                    <TableCell className="font-semibold">
-                                                        General
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Label
-                                                            htmlFor="price-2"
-                                                            className="sr-only"
-                                                        >
-                                                            Price
-                                                        </Label>
-                                                        <Input
-                                                            id="price-2"
-                                                            type="number"
-                                                            defaultValue="50"
-                                                        />
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <Label
-                                                            htmlFor="availability-2"
-                                                            className="sr-only"
-                                                        >
-                                                            Availability
-                                                        </Label>
-                                                        <Input
-                                                            id="availability-2"
-                                                            type="number"
-                                                            defaultValue="200"
-                                                        />
-                                                    </TableCell>
-                                                </TableRow>
-                                            </TableBody>
-                                        </Table>
-                                    </CardContent>
-                                    <CardFooter className="justify-center border-t p-4">
-                                        <Button
-                                            size="sm"
-                                            variant="ghost"
-                                            className="gap-1"
-                                        >
-                                            <PlusCircle className="h-3.5 w-3.5" />
-                                            Add Ticket Type
-                                        </Button>
-                                    </CardFooter>
-                                </Card>
-                                <Card x-chunk="dashboard-07-chunk-2">
-                                    <CardHeader>
-                                        <CardTitle>Event Category</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="grid gap-6 sm:grid-cols-3">
-                                            <div className="grid gap-3">
-                                                <Label htmlFor="category">
-                                                    Category
-                                                </Label>
-                                                <Select>
-                                                    <SelectTrigger
-                                                        id="category"
-                                                        aria-label="Select category"
-                                                    >
-                                                        <SelectValue placeholder="Select category" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="music">
-                                                            Music
-                                                        </SelectItem>
-                                                        <SelectItem value="sports">
-                                                            Sports
-                                                        </SelectItem>
-                                                        <SelectItem value="conference">
-                                                            Conference
-                                                        </SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
-                                            <div className="grid gap-3">
-                                                <Label htmlFor="subcategory">
-                                                    Subcategory (optional)
-                                                </Label>
-                                                <Select>
-                                                    <SelectTrigger
-                                                        id="subcategory"
-                                                        aria-label="Select subcategory"
-                                                    >
-                                                        <SelectValue placeholder="Select subcategory" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="rock">
-                                                            Rock
-                                                        </SelectItem>
-                                                        <SelectItem value="pop">
-                                                            Pop
-                                                        </SelectItem>
-                                                        <SelectItem value="classical">
-                                                            Classical
-                                                        </SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
+                                <EventDetailsCard />
+                                <TicketDetailsCard />
+                                <EventCategoryCard />
                             </div>
                             <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
-                                <Card x-chunk="dashboard-07-chunk-3">
-                                    <CardHeader>
-                                        <CardTitle>Event Status</CardTitle>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="grid gap-6">
-                                            <div className="grid gap-3">
-                                                <Label htmlFor="status">
-                                                    Status
-                                                </Label>
-                                                <Select>
-                                                    <SelectTrigger
-                                                        id="status"
-                                                        aria-label="Select status"
-                                                    >
-                                                        <SelectValue placeholder="Select status" />
-                                                    </SelectTrigger>
-                                                    <SelectContent>
-                                                        <SelectItem value="draft">
-                                                            Draft
-                                                        </SelectItem>
-                                                        <SelectItem value="published">
-                                                            Published
-                                                        </SelectItem>
-                                                        <SelectItem value="archived">
-                                                            Archived
-                                                        </SelectItem>
-                                                    </SelectContent>
-                                                </Select>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                                <Card
-                                    className="overflow-hidden"
-                                    x-chunk="dashboard-07-chunk-4"
-                                >
-                                    <CardHeader>
-                                        <CardTitle>Event Images</CardTitle>
-                                        <CardDescription>
-                                            Upload images related to the event.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div className="grid gap-2">
-                                            <img
-                                                alt="Event image"
-                                                className="aspect-square w-full rounded-md object-cover"
-                                                height="300"
-                                                src="https://placehold.co/600x400"
-                                                width="300"
-                                            />
-                                            <div className="grid grid-cols-3 gap-2">
-                                                <button>
-                                                    <img
-                                                        alt="Event image"
-                                                        className="aspect-square w-full rounded-md object-cover"
-                                                        height="84"
-                                                        src="https://placehold.co/600x400"
-                                                        width="84"
-                                                    />
-                                                </button>
-                                                <button>
-                                                    <img
-                                                        alt="Event image"
-                                                        className="aspect-square w-full rounded-md object-cover"
-                                                        height="84"
-                                                        src="https://placehold.co/600x400"
-                                                        width="84"
-                                                    />
-                                                </button>
-                                                <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
-                                                    <Upload className="h-4 w-4 text-muted-foreground" />
-                                                    <span className="sr-only">
-                                                        Upload
-                                                    </span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </CardContent>
-                                </Card>
-                                <Card x-chunk="dashboard-07-chunk-5">
-                                    <CardHeader>
-                                        <CardTitle>Archive Event</CardTitle>
-                                        <CardDescription>
-                                            Archive this event if it is no
-                                            longer active.
-                                        </CardDescription>
-                                    </CardHeader>
-                                    <CardContent>
-                                        <div></div>
-                                        <Button size="sm" variant="secondary">
-                                            Archive Event
-                                        </Button>
-                                    </CardContent>
-                                </Card>
+                                <EventStatusCard />
+                                <EventImagesCard />
+                                <ArchiveEventCard />
                             </div>
                         </div>
                         <div className="flex items-center justify-center gap-2 md:hidden">
