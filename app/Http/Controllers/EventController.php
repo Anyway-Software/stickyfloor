@@ -24,15 +24,19 @@ class EventController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'venue_name' => 'required|string|max:255',
             'description' => 'required|string',
+            'venue_name' => 'required|string|max:255',
+            'venue_address' => 'required|string|max:255',
+            'start' => 'required|date',
         ]);
 
         $event = Event::create([
             'user_id' => Auth::id(),
             'name' => $request->name,
-            'venue_name' => $request->venue_name,
             'description' => $request->description,
+            'venue_name' => $request->venue_name,
+            'venue_address' => $request->venue_address,
+            'start' => $request->start,
         ]);
 
         return response()->json($event, 201);

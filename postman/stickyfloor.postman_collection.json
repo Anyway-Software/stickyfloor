@@ -318,7 +318,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"New Event\",\n    \"venue_name\": \"New Venue\",\n    \"description\": \"New Description\"\n}",
+					"raw": "{\n    \"name\": \"New Event\",\n    \"venue_name\": \"New Venue\",\n    \"description\": \"New Description\",\n    \"venue_address\": \"123 buckle road\",\n    \"start\": \"2024-09-15T14:00:00Z\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -356,7 +356,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"Updated Event\",\n    \"venue_name\": \"Updated Venue\",\n    \"description\": \"Updated Description\"\n}",
+					"raw": "{\n    \"name\": \"Updated Event\",\n    \"venue_name\": \"Updated Venue\",\n    \"description\": \"Updated Description\",\n    \"venue_address\": \"321 huckle street\",\n    \"start\": \"2024-10-12T11:00:00Z\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -364,14 +364,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{server}}/api/events/4acddd0b-c2ea-45f9-bff0-52e42a2227df",
+					"raw": "{{server}}/api/events/5450da9f-3bc3-4ae3-8d22-b2de4c3cc1c5",
 					"host": [
 						"{{server}}"
 					],
 					"path": [
 						"api",
 						"events",
-						"4acddd0b-c2ea-45f9-bff0-52e42a2227df"
+						"5450da9f-3bc3-4ae3-8d22-b2de4c3cc1c5"
 					]
 				}
 			},
@@ -395,7 +395,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"asd\",\n    \"venue_name\": \"zxc\",\n    \"description\": \"qwe\"\n}",
+					"raw": "{\n    \"event_name\": \"asd\",\n    \"venue_name\": \"zxc\",\n    \"event_description\": \"qwe\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -403,14 +403,14 @@
 					}
 				},
 				"url": {
-					"raw": "{{server}}/api/events/608d0827-65da-4a5b-9b4d-d2983d9b7e7d",
+					"raw": "{{server}}/api/events/5450da9f-3bc3-4ae3-8d22-b2de4c3cc1c5",
 					"host": [
 						"{{server}}"
 					],
 					"path": [
 						"api",
 						"events",
-						"608d0827-65da-4a5b-9b4d-d2983d9b7e7d"
+						"5450da9f-3bc3-4ae3-8d22-b2de4c3cc1c5"
 					]
 				}
 			},
@@ -464,7 +464,7 @@
 		},
 		{
 			"key": "server",
-			"value": "stickyfloor.test:80"
+			"value": "https://stickyfloor.com.au"
 		},
 		{
 			"key": "event_id",
