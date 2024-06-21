@@ -8,6 +8,9 @@ import { TicketDetailsCard } from "./components/TicketDetailsCard";
 import { EventSchema, eventSchema } from "./util/EventSchema";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { EventCategoryCard } from "./components/EventCategoryCard";
+import { EventImagesCard } from "./components/EventImagesCard";
+import { EventStatusCard } from "./components/EventStatusCard";
 
 export function CreateEvent() {
     const { control, handleSubmit } = useForm<EventSchema>({
@@ -35,7 +38,7 @@ export function CreateEvent() {
         >
             <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
                 <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
-                    <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+                    <div className="mx-auto grid max-w-full flex-1 auto-rows-max gap-4">
                         <div className="flex items-center gap-4">
                             <Button
                                 variant="outline"
@@ -58,16 +61,18 @@ export function CreateEvent() {
                                 </Button>
                             </div>
                         </div>
-                        <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-3 lg:gap-8">
-                            <div className="grid auto-rows-max items-start gap-4 lg:col-span-2 lg:gap-8">
+                        <div className="grid gap-4 md:grid-cols-[1fr_250px] lg:grid-cols-2 lg:gap-8">
+                            <div className="grid auto-rows-max items-start gap-4 lg:col-span-1 lg:gap-8">
                                 <EventDetailsCard control={control} />
-                                <TicketDetailsCard control={control} />
-                                {/* <EventCategoryCard /> */}
+                                {/* <TicketDetailsCard control={control} /> */}
+                                <EventCategoryCard />
                             </div>
                             <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
+                                <TicketDetailsCard control={control} />
+
                                 {/* <EventStatusCard /> */}
-                                {/* <EventImagesCard /> */}
-                                <ArchiveEventCard />
+                                <EventImagesCard />
+                                {/* <ArchiveEventCard /> */}
                             </div>
                         </div>
                         <div className="flex items-center justify-center gap-2 md:hidden">
