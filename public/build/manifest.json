@@ -1,0 +1,126 @@
+{
+  "_index-C9qvHn_H.js": {
+    "file": "assets/index-C9qvHn_H.js",
+    "name": "index",
+    "imports": [
+      "resources/js/app.tsx"
+    ]
+  },
+  "_label-WMGcOIQA.js": {
+    "file": "assets/label-WMGcOIQA.js",
+    "name": "label",
+    "imports": [
+      "resources/js/app.tsx",
+      "_index-C9qvHn_H.js"
+    ]
+  },
+  "_table-BZFaiNSe.js": {
+    "file": "assets/table-BZFaiNSe.js",
+    "name": "table",
+    "imports": [
+      "resources/js/app.tsx",
+      "_index-C9qvHn_H.js"
+    ]
+  },
+  "_use-toast-iQTR_G4K.js": {
+    "file": "assets/use-toast-iQTR_G4K.js",
+    "name": "use-toast",
+    "imports": [
+      "resources/js/app.tsx"
+    ]
+  },
+  "resources/css/app.css": {
+    "file": "assets/app-C_5WRN1V.css",
+    "src": "resources/css/app.css",
+    "isEntry": true
+  },
+  "resources/js/app.tsx": {
+    "file": "assets/app-9sdbZg__.js",
+    "name": "app",
+    "src": "resources/js/app.tsx",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/routes/register.lazy.tsx",
+      "resources/js/routes/login.lazy.tsx",
+      "resources/js/routes/google-callback.lazy.tsx",
+      "resources/js/routes/dashboard.lazy.tsx",
+      "resources/js/routes/create_event.lazy.tsx",
+      "resources/js/routes/about.lazy.tsx",
+      "resources/js/routes/index.lazy.tsx"
+    ]
+  },
+  "resources/js/routes/about.lazy.tsx": {
+    "file": "assets/about.lazy-D-Pw3-8l.js",
+    "name": "about.lazy",
+    "src": "resources/js/routes/about.lazy.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx"
+    ]
+  },
+  "resources/js/routes/create_event.lazy.tsx": {
+    "file": "assets/create_event.lazy-Dwhv9kll.js",
+    "name": "create_event.lazy",
+    "src": "resources/js/routes/create_event.lazy.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_index-C9qvHn_H.js",
+      "_table-BZFaiNSe.js",
+      "_label-WMGcOIQA.js"
+    ]
+  },
+  "resources/js/routes/dashboard.lazy.tsx": {
+    "file": "assets/dashboard.lazy-Cy_4A-S6.js",
+    "name": "dashboard.lazy",
+    "src": "resources/js/routes/dashboard.lazy.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_index-C9qvHn_H.js",
+      "_table-BZFaiNSe.js"
+    ]
+  },
+  "resources/js/routes/google-callback.lazy.tsx": {
+    "file": "assets/google-callback.lazy-CTAHwsOx.js",
+    "name": "google-callback.lazy",
+    "src": "resources/js/routes/google-callback.lazy.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx"
+    ]
+  },
+  "resources/js/routes/index.lazy.tsx": {
+    "file": "assets/index.lazy-Dh2ODaMM.js",
+    "name": "index.lazy",
+    "src": "resources/js/routes/index.lazy.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx"
+    ]
+  },
+  "resources/js/routes/login.lazy.tsx": {
+    "file": "assets/login.lazy-DmefoSZE.js",
+    "name": "login.lazy",
+    "src": "resources/js/routes/login.lazy.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_use-toast-iQTR_G4K.js",
+      "_index-C9qvHn_H.js",
+      "_label-WMGcOIQA.js"
+    ]
+  },
+  "resources/js/routes/register.lazy.tsx": {
+    "file": "assets/register.lazy-CIMjNX39.js",
+    "name": "register.lazy",
+    "src": "resources/js/routes/register.lazy.tsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/app.tsx",
+      "_use-toast-iQTR_G4K.js",
+      "_index-C9qvHn_H.js",
+      "_label-WMGcOIQA.js"
+    ]
+  }
+}

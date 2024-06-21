@@ -1,0 +1,1 @@
+import{u as a,r as e,j as s}from"./app-9sdbZg__.js";const r=()=>{const o=a();return e.useEffect(()=>{const t=new URLSearchParams(window.location.search).get("token");t?(localStorage.setItem("api_token",t),o({to:"/dashboard"})):o({to:"/login"})},[o]),s.jsx("div",{children:"Loading..."})},i=r;export{i as Route};
