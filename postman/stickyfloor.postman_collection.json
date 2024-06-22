@@ -417,6 +417,84 @@
 			"response": []
 		},
 		{
+			"name": "/api/events/:id/ticket-categories SHOW TICKET CATEGORIES",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{server}}/api/events/{{event_id}}/ticket-categories",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						"{{event_id}}",
+						"ticket-categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/api/events/:id/ticket-categories SAVE TICKET CATEGORIES",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "default"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"categories\": [ // if an existing category is not provided in payload it will be deleted\n        {\n            \"id\": \"bf886356-7565-4616-904b-7c4928b0be9b\", // if id is provided will perform update\n            \"name\": \"Updated VIP Access\",\n            \"description\": \"Updated exclusive access to VIP lounge and premium seats.\",\n            \"tickets_allocated\": 50,\n            \"price\": 150.00,\n            \"start_time\": \"2024-09-15T18:00:00Z\",\n            \"end_time\": \"2024-09-15T22:00:00Z\",\n            \"area_name\": \"Updated VIP Section\"\n        },\n        {\n            \"name\": \"Updated General Admission\", // if id is not provided will perform create\n            \"description\": \"Updated standard access to the event.\",\n            \"tickets_allocated\": 200,\n            \"price\": 50.00,\n            \"start_time\": \"2024-09-15T18:00:00Z\",\n            \"end_time\": \"2024-09-15T22:00:00Z\",\n            \"area_name\": \"Updated Main Hall\"\n        }\n    ]\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{server}}/api/events/{{event_id}}/ticket-categories",
+					"host": [
+						"{{server}}"
+					],
+					"path": [
+						"api",
+						"events",
+						"{{event_id}}",
+						"ticket-categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "/api/health",
 			"request": {
 				"method": "GET",
