@@ -541,12 +541,12 @@
 			"value": ""
 		},
 		{
-			"key": "server",
-			"value": "https://stickyfloor.com.au"
-		},
-		{
 			"key": "event_id",
 			"value": "fe1e4911-01c6-4ed4-95c8-44926c503139"
+		},
+		{
+			"key": "server",
+			"value": "http://stickyfloor.test:80"
 		}
 	]
 }
