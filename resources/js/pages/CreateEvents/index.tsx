@@ -26,17 +26,19 @@ export function CreateEvent() {
     return (
         <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 gap-4">
-                <div>
+                <div className="space-y-4">
                     <EventDetailsCard
                         onNext={handleNext}
                         setEventId={setEventId}
                         onEventSaved={handleEventSaved}
                         disabled={!eventDetailsSaved}
                     />
+                    {/* <EventCategoryCard /> */}
                 </div>
                 <div
-                    className={`${!eventDetailsSaved ? "opacity-50 pointer-events-none" : ""}`}
+                    className={`space-y-4 ${!eventDetailsSaved ? "opacity-50 pointer-events-none" : ""}`}
                 >
+                    {/* <EventStatusCard /> */}
                     <TicketDetailsCard
                         onNext={handleNext}
                         onPrev={handlePrev}
@@ -44,10 +46,8 @@ export function CreateEvent() {
                         eventId={eventId}
                         disabled={!eventDetailsSaved}
                     />
+                    {/* <EventImagesCard /> */}
                 </div>
-                {/* <EventCategoryCard />
-                <EventImagesCard />
-                <EventStatusCard /> */}
             </div>
         </div>
     );
