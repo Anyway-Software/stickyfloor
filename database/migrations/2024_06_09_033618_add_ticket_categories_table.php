@@ -17,13 +17,13 @@ return new class extends Migration
             $table->uuid('event_id');
             $table->foreign('event_id')->references('id')->on('events')->onDelete('cascade');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();;
             $table->integer('tickets_allocated');
             $table->integer('tickets_sold');
             $table->decimal('price', 8, 2);
-            $table->timestamp('start_time');
-            $table->timestamp('end_time');
-            $table->string('area_name');
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
+            $table->string('area_name')->nullable();;
             $table->timestamps();
         });
     }

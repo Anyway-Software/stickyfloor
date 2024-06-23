@@ -28,8 +28,8 @@ class TicketCategoryController extends Controller
             'categories.*.description' => 'nullable|string',
             'categories.*.tickets_allocated' => 'required|integer|min:0',
             'categories.*.price' => 'required|numeric|min:0',
-            'categories.*.start_time' => 'required|date',
-            'categories.*.end_time' => 'required|date|after:categories.*.start_time',
+            'categories.*.start_time' => 'nullable|date',
+            'categories.*.end_time' => 'nullable|date|after:categories.*.start_time',
             'categories.*.area_name' => 'nullable|string|max:255',
             'categories.*.id' => 'nullable|uuid|exists:ticket_categories,id',
         ]);
