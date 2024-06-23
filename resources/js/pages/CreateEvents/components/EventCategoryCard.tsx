@@ -64,13 +64,10 @@ export function EventCategoryCard() {
                     </div>
                 </div>
             </CardContent>
-            <CardFooter className="flex justify-between">
-                <Button variant="outline">Back</Button>
-                <Button size="sm" variant="ghost" className="gap-1">
-                    <PlusCircle className="h-3.5 w-3.5" />
-                    Event Category
+            <CardFooter className="p-4 border-t">
+                <Button size="sm" className="w-full" type="submit">
+                    Save
                 </Button>
-                <Button>Save</Button>
             </CardFooter>
         </Card>
     );

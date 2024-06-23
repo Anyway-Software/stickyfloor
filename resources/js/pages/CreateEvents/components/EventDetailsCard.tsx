@@ -23,9 +23,9 @@ import { Loader2 } from "lucide-react";
 
 interface EventDetailsCardProps {
     onNext: () => void;
-    onPrev: () => void;
-    currentStep: number;
     setEventId: (id: string) => void;
+    onEventSaved: () => void;
+    disabled: boolean;
 }
 
 const eventDetailsSchema = z.object({
@@ -42,9 +42,10 @@ type EventDetailsFormValues = z.infer<typeof eventDetailsSchema>;
 
 export function EventDetailsCard({
     onNext,
-    onPrev,
-    currentStep,
+
     setEventId,
+    onEventSaved,
+    disabled,
 }: EventDetailsCardProps) {
     const {
         register,
@@ -82,6 +83,7 @@ export function EventDetailsCard({
         },
         onSuccess: (data) => {
             setEventId(data.id);
+            onEventSaved();
             toast({
                 variant: "default",
                 title: "Event Created",
@@ -168,29 +170,22 @@ export function EventDetailsCard({
                         </div>
                     </div>
                 </CardContent>
-                <CardFooter className="flex justify-between p-4 border-t">
-                    {/* <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={onPrev}
-                        disabled={currentStep === 0}
-                    >
-                        Back
-                    </Button> */}
-                    <div></div>
-                    <Button
-                        size="sm"
-                        type="submit"
-                        disabled={mutation.isPending}
-                    >
-                        {mutation.isPending ? (
-                            <Loader2 className="animate-spin" />
-                        ) : (
-                            "Next"
-                        )}
-                    </Button>
-                </CardFooter>
+                {disabled && (
+                    <CardFooter className="p-4 border-t">
+                        <Button
+                            size="sm"
+                            className="w-full"
+                            type="submit"
+                            disabled={mutation.isPending}
+                        >
+                            {mutation.isPending ? (
+                                <Loader2 className="animate-spin" />
+                            ) : (
+                                "Save"
+                            )}
+                        </Button>
+                    </CardFooter>
+                )}
             </form>
         </Card>
     );

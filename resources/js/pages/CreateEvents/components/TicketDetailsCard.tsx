@@ -30,6 +30,7 @@ interface TicketDetailsCardProps {
     onPrev: () => void;
     currentStep: number;
     eventId: string | null;
+    disabled: boolean;
 }
 
 const ticketDetailsSchema = z.object({
@@ -52,6 +53,7 @@ export function TicketDetailsCard({
     onPrev,
     currentStep,
     eventId,
+    disabled,
 }: TicketDetailsCardProps) {
     const {
         register,
@@ -147,6 +149,7 @@ export function TicketDetailsCard({
                                             {...register(
                                                 `tickets.${index}.name` as const,
                                             )}
+                                            disabled={disabled}
                                         />
                                         {errors.tickets?.[index]?.name && (
                                             <p className="text-red-500">
@@ -163,6 +166,7 @@ export function TicketDetailsCard({
                                             {...register(
                                                 `tickets.${index}.tickets_allocated` as const,
                                             )}
+                                            disabled={disabled}
                                         />
                                         {errors.tickets?.[index]
                                             ?.tickets_allocated && (
@@ -181,6 +185,7 @@ export function TicketDetailsCard({
                                             {...register(
                                                 `tickets.${index}.price` as const,
                                             )}
+                                            disabled={disabled}
                                         />
                                         {errors.tickets?.[index]?.price && (
                                             <p className="text-red-500">
@@ -208,32 +213,24 @@ export function TicketDetailsCard({
                                 price: 0,
                             })
                         }
+                        disabled={disabled}
                     >
                         <PlusCircle className="h-3.5 w-3.5" />
                         Add Category
                     </Button>
                 </CardFooter>
 
-                <CardFooter className="flex justify-between p-4 border-t">
-                    {/* <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={onPrev}
-                        disabled={currentStep === 0}
-                    >
-                        Back
-                    </Button> */}
-                    <div></div>
+                <CardFooter className="p-4 border-t">
                     <Button
-                        type="submit"
                         size="sm"
+                        className="w-full"
+                        type="submit"
                         disabled={mutation.isPending}
                     >
                         {mutation.isPending ? (
                             <Loader2 className="animate-spin" />
                         ) : (
-                            "Next"
+                            "Save"
                         )}
                     </Button>
                 </CardFooter>
