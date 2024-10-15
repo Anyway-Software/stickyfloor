@@ -42,10 +42,10 @@ jobs:
           npm run build
         working-directory: ${{ env.DEPLOY_PATH }}
 
-      # Step 6: Sync updated files to the deployment directory, but exclude vendor and node_modules
+      # Step 6: Sync updated files to the deployment directory, but exclude vendor, node_modules, and runtime files
       - name: Sync updated files to deployment path
         run: |
-          rsync -avz --delete --exclude='vendor' --exclude='node_modules' ./ ${{ env.DEPLOY_PATH }}
+          rsync -avz --exclude='vendor' --exclude='node_modules' --exclude='storage/logs' --exclude='storage/framework/views' --exclude='bootstrap/cache' ./ ${{ env.DEPLOY_PATH }}
 
       # Step 6: Run Laravel database migrations
       - name: Run migrations
