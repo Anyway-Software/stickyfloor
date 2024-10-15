@@ -41,6 +41,10 @@ jobs:
           npm install
           npm run build
         working-directory: ${{ env.DEPLOY_PATH }}
+        
+      # Step 6: Copy the updated files to the deployment directory
+      - name: Sync updated files to deployment path
+        run: rsync -avz --delete ./ ${{ env.DEPLOY_PATH }}
 
       # Step 6: Run Laravel database migrations
       - name: Run migrations
