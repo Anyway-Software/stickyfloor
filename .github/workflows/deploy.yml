@@ -1,6 +1,5 @@
 name: Deploy Laravel/React App
 
-# Trigger the workflow when pushing to the main branch
 on:
   push:
     branches:
@@ -18,47 +17,65 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 1b: Sync updated files to deployment path
-      - name: Sync updated files to deployment path
-        run: |
-          rsync -avz --exclude='vendor' --exclude='node_modules' --exclude='.git' --exclude='.github' --exclude='storage/logs' --exclude='storage/framework' --exclude='bootstrap/cache' ./ ${{ env.DEPLOY_PATH }}
+      # # Step 2: Sync updated files to deployment path
+      # - name: Sync updated files to deployment path
+      #   run: |
+      #     rsync -avz \
+      #       --exclude='.env' \
+      #       --exclude='vendor' \
+      #       --exclude='node_modules' \
+      #       --exclude='.git' \
+      #       --exclude='.github' \
+      #       --exclude='storage/logs' \
+      #       --exclude='storage/framework' \
+      #       --exclude='bootstrap/cache' \
+      #       ./ ${{ env.DEPLOY_PATH }}
 
-      # Step 2: Set up PHP for Laravel
+      # Step 3: Copy .env.example to .env and overwrite with secrets
+      - name: Set up .env file
+        run: |
+          cp .env.example .env
+          # Overwrite sensitive variables using secrets
+          echo "APP_KEY=${{ secrets.ENV_APP_KEY }}" >> .env
+          echo "DB_CONNECTION=${{ secrets.ENV_DB_CONNECTION }}" >> .env
+          echo "DB_HOST=${{ secrets.ENV_DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.ENV_DB_PORT }}" >> .env
+          echo "DB_DATABASE=${{ secrets.ENV_DB_DATABASE }}" >> .env
+          echo "DB_USERNAME=${{ secrets.ENV_DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.ENV_DB_PASSWORD }}" >> .env
+          # Add any other environment variables as needed
+        working-directory: ${{ env.DEPLOY_PATH }}
+
+      # Step 4: Set up PHP for Laravel
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
 
-      # Step 3: Install Composer dependencies for Laravel
+      # Step 5: Install Composer dependencies for Laravel
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
         working-directory: ${{ env.DEPLOY_PATH }}
 
-      # Step 4: Set up Node.js for React
+      # Step 6: Set up Node.js for React
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # Step 5: Install npm dependencies and build React assets
+      # Step 7: Install NPM dependencies and build React assets
       - name: Install NPM dependencies and build assets
         run: |
           npm install
           npm run build
         working-directory: ${{ env.DEPLOY_PATH }}
-
-      # Step 6: Run Laravel database migrations
+          
+      # Step 8: Run Laravel database migrations
       - name: Run migrations
         run: php artisan migrate --force # force for deployments so that it doesn't ask for confirmation
         working-directory: ${{ env.DEPLOY_PATH }}
 
-      # Step 7: Restart PHP and Nginx services to apply changes
-      - name: Restart services
-        run: |
-          sudo systemctl restart php8.2-fpm
-          sudo systemctl restart nginx
-
-      # Stemp 8: Clear laravel cache
+      # Step 9: Clear Laravel Cache
       - name: Clear Laravel Cache
         run: |
           php artisan config:cache
@@ -66,3 +83,9 @@ jobs:
           php artisan view:cache
           php artisan cache:clear
         working-directory: ${{ env.DEPLOY_PATH }}
+
+      # Step 10: Restart PHP and Nginx services to apply changes
+      - name: Restart services
+        run: |
+          sudo systemctl restart php8.2-fpm
+          sudo systemctl restart nginx
