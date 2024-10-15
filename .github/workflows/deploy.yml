@@ -18,6 +18,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 1b: Sync updated files to deployment path
+      - name: Sync updated files to deployment path
+        run: |
+          rsync -avz --exclude='vendor' --exclude='node_modules' --exclude='.git' --exclude='.github' --exclude='storage/logs' --exclude='storage/framework' --exclude='bootstrap/cache' ./ ${{ env.DEPLOY_PATH }}
+
       # Step 2: Set up PHP for Laravel
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
@@ -41,11 +46,6 @@ jobs:
           npm install
           npm run build
         working-directory: ${{ env.DEPLOY_PATH }}
-
-      # Step 6: Sync updated files to the deployment directory, but exclude vendor, node_modules, and runtime files
-      - name: Sync updated files to deployment path
-        run: |
-          rsync -avz --exclude='vendor' --exclude='node_modules' --exclude='storage/logs' --exclude='storage/framework/views' --exclude='bootstrap/cache' ./ ${{ env.DEPLOY_PATH }}
 
       # Step 6: Run Laravel database migrations
       - name: Run migrations
