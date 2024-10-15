@@ -1,0 +1,48 @@
+name: Deploy Laravel/React App
+
+# Trigger the workflow when pushing to the main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      # Step 1: Check out the repository code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up PHP for Laravel
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2' # Replace with your PHP version
+
+      # Step 3: Install Composer dependencies for Laravel
+      - name: Install Composer dependencies
+        run: composer install --no-interaction --prefer-dist --optimize-autoloader
+
+      # Step 4: Set up Node.js for React
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20' # Replace with your Node.js version
+
+      # Step 5: Install npm dependencies and build React assets
+      - name: Install NPM dependencies and build assets
+        run: |
+          npm install
+          npm run build
+
+      # Step 6: Run Laravel database migrations
+      - name: Run migrations
+        run: php artisan migrate --force
+
+      # Step 7: Restart PHP and Nginx services to apply changes
+      - name: Restart services
+        run: |
+          sudo systemctl restart php8.1-fpm
+          sudo systemctl restart nginx
