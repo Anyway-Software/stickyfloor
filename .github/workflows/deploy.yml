@@ -47,6 +47,11 @@ jobs:
         run: |
           rsync -avz --delete --exclude='vendor' --exclude='node_modules' ./ ${{ env.DEPLOY_PATH }}
 
+      # Step 6: Run Laravel database migrations
+      - name: Run migrations
+        run: php artisan migrate --force # force for deployments so that it doesn't ask for confirmation
+        working-directory: ${{ env.DEPLOY_PATH }}
+
       # Step 7: Restart PHP and Nginx services to apply changes
       - name: Restart services
         run: |
