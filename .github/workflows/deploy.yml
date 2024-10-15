@@ -18,18 +18,14 @@ jobs:
         uses: actions/checkout@v3
 
       # # Step 2: Sync updated files to deployment path
-      # - name: Sync updated files to deployment path
-      #   run: |
-      #     rsync -avz \
-      #       --exclude='.env' \
-      #       --exclude='vendor' \
-      #       --exclude='node_modules' \
-      #       --exclude='.git' \
-      #       --exclude='.github' \
-      #       --exclude='storage/logs' \
-      #       --exclude='storage/framework' \
-      #       --exclude='bootstrap/cache' \
-      #       ./ ${{ env.DEPLOY_PATH }}
+      - name: Sync updated files to deployment path
+        run: |
+          rsync -avz \
+            --exclude='.env' \
+            --exclude='vendor' \
+            --exclude='node_modules' \
+            --exclude='storage' \
+            ./ ${{ env.DEPLOY_PATH }}
 
       # Step 3: Copy .env.example to .env and overwrite with secrets
       - name: Set up .env file
