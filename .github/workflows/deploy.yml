@@ -36,13 +36,13 @@ jobs:
         run: |
           cp .env.example .env
           # Overwrite sensitive variables using secrets
-          echo "APP_KEY=${{ secrets.ENV_APP_KEY }}" >> .env
-          echo "DB_CONNECTION=${{ secrets.ENV_DB_CONNECTION }}" >> .env
-          echo "DB_HOST=${{ secrets.ENV_DB_HOST }}" >> .env
-          echo "DB_PORT=${{ secrets.ENV_DB_PORT }}" >> .env
-          echo "DB_DATABASE=${{ secrets.ENV_DB_DATABASE }}" >> .env
-          echo "DB_USERNAME=${{ secrets.ENV_DB_USERNAME }}" >> .env
-          echo "DB_PASSWORD=${{ secrets.ENV_DB_PASSWORD }}" >> .env
+          echo "APP_KEY=${{ secrets.APP_KEY }}" >> .env
+          echo "DB_CONNECTION=${{ secrets.DB_CONNECTION }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
           # Add any other environment variables as needed
         working-directory: ${{ env.DEPLOY_PATH }}
 
