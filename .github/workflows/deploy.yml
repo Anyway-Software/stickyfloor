@@ -10,6 +10,9 @@ jobs:
   deploy:
     runs-on: self-hosted
 
+    env:
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
+      
     steps:
       # Step 1: Check out the repository code
       - name: Checkout code
@@ -24,6 +27,7 @@ jobs:
       # Step 3: Install Composer dependencies for Laravel
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
+        working-directory: ${{ env.DEPLOY_PATH }}
 
       # Step 4: Set up Node.js for React
       - name: Set up Node.js
@@ -36,15 +40,17 @@ jobs:
         run: |
           npm install
           npm run build
+        working-directory: ${{ env.DEPLOY_PATH }}
 
       # Step 6: Run Laravel database migrations
       - name: Run migrations
-        run: php artisan migrate --force
+        run: php artisan migrate -- # force is option is for deployments so that it doesn't ask for confirmation
+        working-directory: ${{ env.DEPLOY_PATH }}
 
       # Step 7: Restart PHP and Nginx services to apply changes
       - name: Restart services
         run: |
-          sudo systemctl restart php8.1-fpm
+          sudo systemctl restart php8.2-fpm
           sudo systemctl restart nginx
 
       # Stemp 8: Clear laravel cache
@@ -54,3 +60,4 @@ jobs:
           php artisan route:cache
           php artisan view:cache
           php artisan cache:clear
+      - working-directory: ${{ env.DEPLOY_PATH }}
