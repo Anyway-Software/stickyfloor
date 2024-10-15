@@ -40,7 +40,6 @@ jobs:
         run: |
           npm install
           npm run build
-          cp -r build/* public/ # Copy build assets to the Laravel public directory
         working-directory: ${{ env.DEPLOY_PATH }}
 
       # Step 6: Run Laravel database migrations
