@@ -22,7 +22,7 @@ jobs:
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.2' # Replace with your PHP version
+          php-version: '8.2'
 
       # Step 3: Install Composer dependencies for Laravel
       - name: Install Composer dependencies
@@ -33,7 +33,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20' # Replace with your Node.js version
+          node-version: '20'
 
       # Step 5: Install npm dependencies and build React assets
       - name: Install NPM dependencies and build assets
@@ -60,4 +60,4 @@ jobs:
           php artisan route:cache
           php artisan view:cache
           php artisan cache:clear
-      - working-directory: ${{ env.DEPLOY_PATH }}
+        working-directory: ${{ env.DEPLOY_PATH }}
