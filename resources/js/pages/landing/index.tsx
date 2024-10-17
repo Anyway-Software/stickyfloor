@@ -1,7 +1,6 @@
-import { Button } from '@/components/ui/button'
-import { Link } from '@tanstack/react-router'
 import * as React from 'react'
-
+import { Link } from '@tanstack/react-router'
+import { Button } from '@/components/ui/button'
 import {
     Card,
     CardContent,
@@ -10,19 +9,10 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
 
 export function Landing() {
     return (
-        <div className="flex items-center justify-center h-screen">
+        <div className="flex items-center justify-center min-h-screen bg-background">
             <Card className="w-[350px]">
                 <CardHeader>
                     <CardTitle>Welcome to stickyfloor.</CardTitle>
@@ -31,14 +21,21 @@ export function Landing() {
                     </CardDescription>
                 </CardHeader>
                 <CardContent>
-                    <div className="grid w-full items-center gap-4 items-center justify-center">
-                        // image pointing to the logo
-                        <img src="/avatars/01.png" alt="logo" />
+                    <div className="grid w-full items-center gap-4 justify-center">
+                        <img
+                            src="./logo.webp"
+                            alt="logo"
+                            className="object-contain"
+                        />
                     </div>
                 </CardContent>
-                <CardFooter className="flex justify-between">
-                    <Button variant="outline">Cancel</Button>
-                    <Button>Deploy</Button>
+                <CardFooter className="flex justify-around">
+                    <Button asChild className="w-full mx-2">
+                        <Link to="/login">Login</Link>
+                    </Button>
+                    <Button asChild className="w-full mx-2">
+                        <Link to="/register">Register</Link>
+                    </Button>
                 </CardFooter>
             </Card>
         </div>
