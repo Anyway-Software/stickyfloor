@@ -20,7 +20,7 @@ const RegisterLazyImport = createFileRoute('/register')()
 const LoginLazyImport = createFileRoute('/login')()
 const GoogleCallbackLazyImport = createFileRoute('/google-callback')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
-const CreateeventLazyImport = createFileRoute('/create-event')()
+const CreateeventLazyImport = createFileRoute('/create_event')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
@@ -49,9 +49,9 @@ const DashboardLazyRoute = DashboardLazyImport.update({
 } as any).lazy(() => import('./routes/dashboard.lazy').then((d) => d.Route))
 
 const CreateeventLazyRoute = CreateeventLazyImport.update({
-  path: '/create-event',
+  path: '/create_event',
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/create-event.lazy').then((d) => d.Route))
+} as any).lazy(() => import('./routes/create_event.lazy').then((d) => d.Route))
 
 const AboutLazyRoute = AboutLazyImport.update({
   path: '/about',
@@ -81,10 +81,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutLazyImport
       parentRoute: typeof rootRoute
     }
-    '/create-event': {
-      id: '/create-event'
-      path: '/create-event'
-      fullPath: '/create-event'
+    '/create_event': {
+      id: '/create_event'
+      path: '/create_event'
+      fullPath: '/create_event'
       preLoaderRoute: typeof CreateeventLazyImport
       parentRoute: typeof rootRoute
     }
@@ -141,7 +141,7 @@ export const routeTree = rootRoute.addChildren({
       "children": [
         "/",
         "/about",
-        "/create-event",
+        "/create_event",
         "/dashboard",
         "/google-callback",
         "/login",
@@ -154,8 +154,8 @@ export const routeTree = rootRoute.addChildren({
     "/about": {
       "filePath": "about.lazy.tsx"
     },
-    "/create-event": {
-      "filePath": "create-event.lazy.tsx"
+    "/create_event": {
+      "filePath": "create_event.lazy.tsx"
     },
     "/dashboard": {
       "filePath": "dashboard.lazy.tsx"
