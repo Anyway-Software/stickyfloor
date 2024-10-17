@@ -12,28 +12,36 @@ import {
 
 export function Landing() {
     return (
-        <div className="flex items-center justify-center min-h-screen bg-background">
-            <Card className="w-[350px]">
+        <div className="flex flex-col items-center justify-center min-h-screen bg-background p-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-center mb-2">
+                Welcome to stickyfloor.
+            </h1>
+            <p className="text-xl md:text-2xl text-center text-muted-foreground mb-8">
+                Event ticketing with super minimal booking fees.
+            </p>
+
+            <Card className="w-full max-w-[350px]">
                 <CardHeader>
-                    <CardTitle>Welcome to stickyfloor.</CardTitle>
-                    <CardDescription>
-                        Event ticketing with super minimal booking fees.
-                    </CardDescription>
+                    <CardTitle>Get started</CardTitle>
+                    <CardDescription>Create your first event</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <div className="grid w-full items-center gap-4 justify-center">
                         <img
                             src="./logo.webp"
                             alt="logo"
-                            className="object-contain"
+                            className="w-32 h-32 object-contain mx-auto"
                         />
                     </div>
                 </CardContent>
-                <CardFooter className="flex justify-around">
-                    <Button asChild className="w-full mx-2">
+                <CardFooter className="flex flex-col sm:flex-row justify-around">
+                    <Button
+                        asChild
+                        className="w-full sm:w-[calc(50%-0.5rem)] mb-2 sm:mb-0"
+                    >
                         <Link to="/login">Login</Link>
                     </Button>
-                    <Button asChild className="w-full mx-2">
+                    <Button asChild className="w-full sm:w-[calc(50%-0.5rem)]">
                         <Link to="/register">Register</Link>
                     </Button>
                 </CardFooter>
