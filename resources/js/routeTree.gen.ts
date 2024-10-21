@@ -16,15 +16,22 @@ import { Route as rootRoute } from './routes/__root'
 
 // Create Virtual Routes
 
+const TicketsLazyImport = createFileRoute('/tickets')()
 const RegisterLazyImport = createFileRoute('/register')()
 const LoginLazyImport = createFileRoute('/login')()
 const GoogleCallbackLazyImport = createFileRoute('/google-callback')()
+const EventsLazyImport = createFileRoute('/events')()
 const DashboardLazyImport = createFileRoute('/dashboard')()
 const CreateeventLazyImport = createFileRoute('/create_event')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
 
 // Create/Update Routes
+
+const TicketsLazyRoute = TicketsLazyImport.update({
+  path: '/tickets',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/tickets.lazy').then((d) => d.Route))
 
 const RegisterLazyRoute = RegisterLazyImport.update({
   path: '/register',
@@ -42,6 +49,11 @@ const GoogleCallbackLazyRoute = GoogleCallbackLazyImport.update({
 } as any).lazy(() =>
   import('./routes/google-callback.lazy').then((d) => d.Route),
 )
+
+const EventsLazyRoute = EventsLazyImport.update({
+  path: '/events',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() => import('./routes/events.lazy').then((d) => d.Route))
 
 const DashboardLazyRoute = DashboardLazyImport.update({
   path: '/dashboard',
@@ -95,6 +107,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardLazyImport
       parentRoute: typeof rootRoute
     }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsLazyImport
+      parentRoute: typeof rootRoute
+    }
     '/google-callback': {
       id: '/google-callback'
       path: '/google-callback'
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterLazyImport
       parentRoute: typeof rootRoute
     }
+    '/tickets': {
+      id: '/tickets'
+      path: '/tickets'
+      fullPath: '/tickets'
+      preLoaderRoute: typeof TicketsLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -126,9 +152,11 @@ export const routeTree = rootRoute.addChildren({
   AboutLazyRoute,
   CreateeventLazyRoute,
   DashboardLazyRoute,
+  EventsLazyRoute,
   GoogleCallbackLazyRoute,
   LoginLazyRoute,
   RegisterLazyRoute,
+  TicketsLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -143,9 +171,11 @@ export const routeTree = rootRoute.addChildren({
         "/about",
         "/create_event",
         "/dashboard",
+        "/events",
         "/google-callback",
         "/login",
-        "/register"
+        "/register",
+        "/tickets"
       ]
     },
     "/": {
@@ -160,6 +190,9 @@ export const routeTree = rootRoute.addChildren({
     "/dashboard": {
       "filePath": "dashboard.lazy.tsx"
     },
+    "/events": {
+      "filePath": "events.lazy.tsx"
+    },
     "/google-callback": {
       "filePath": "google-callback.lazy.tsx"
     },
@@ -168,6 +201,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/register": {
       "filePath": "register.lazy.tsx"
+    },
+    "/tickets": {
+      "filePath": "tickets.lazy.tsx"
     }
   }
 }
