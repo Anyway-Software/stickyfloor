@@ -4,8 +4,8 @@ import {
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
-import { Upload } from "lucide-react";
+} from '@/components/ui/card'
+import { Upload } from 'lucide-react'
 
 export function EventImagesCard() {
     return (
@@ -52,5 +52,5 @@ export function EventImagesCard() {
                 </div>
             </CardContent>
         </Card>
-    );
+    )
 }

@@ -1,5 +1,5 @@
 function getAuthToken() {
-    return localStorage.getItem("api_token");
+    return localStorage.getItem('api_token')
 }
 
-export default getAuthToken;
+export default getAuthToken

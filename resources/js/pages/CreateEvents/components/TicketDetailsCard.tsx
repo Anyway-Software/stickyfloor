@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
     Card,
     CardContent,
@@ -6,8 +6,8 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 import {
     Table,
     TableBody,
@@ -15,38 +15,38 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useFieldArray, useForm } from "react-hook-form";
-import { z } from "zod";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { toast } from "@/components/ui/use-toast";
-import getAuthToken from "@/lib/getAuthToken";
-import { Loader2, PlusCircle } from "lucide-react";
+} from '@/components/ui/table'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useFieldArray, useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+import { toast } from '@/components/ui/use-toast'
+import getAuthToken from '@/lib/getAuthToken'
+import { Loader2, PlusCircle } from 'lucide-react'
 
 interface TicketDetailsCardProps {
-    onNext: () => void;
-    onPrev: () => void;
-    currentStep: number;
-    eventId: string | null;
-    disabled: boolean;
+    onNext: () => void
+    onPrev: () => void
+    currentStep: number
+    eventId: string | null
+    disabled: boolean
 }
 
 const ticketDetailsSchema = z.object({
     tickets: z.array(
         z.object({
             id: z.string().optional(),
-            name: z.string().nonempty("Name is required"),
+            name: z.string().nonempty('Name is required'),
             tickets_allocated: z
                 .number()
-                .min(0, "Tickets allocated must be at least 0"),
-            price: z.number().min(0, "Price must be at least 0"),
+                .min(0, 'Tickets allocated must be at least 0'),
+            price: z.number().min(0, 'Price must be at least 0'),
         }),
     ),
-});
+})
 
-type TicketDetailsFormValues = z.infer<typeof ticketDetailsSchema>;
+type TicketDetailsFormValues = z.infer<typeof ticketDetailsSchema>
 
 export function TicketDetailsCard({
     onNext,
@@ -65,28 +65,28 @@ export function TicketDetailsCard({
         defaultValues: {
             tickets: [
                 {
-                    name: "VIP",
+                    name: 'VIP',
                     tickets_allocated: 50,
                     price: 150,
                 },
                 {
-                    name: "General",
+                    name: 'General',
                     tickets_allocated: 200,
                     price: 50,
                 },
             ],
         },
-    });
+    })
 
     const { fields, append } = useFieldArray({
         control,
-        name: "tickets",
-    });
+        name: 'tickets',
+    })
 
     const mutation = useMutation({
         mutationFn: async (data: TicketDetailsFormValues) => {
             if (!eventId) {
-                throw new Error("Event ID is not available");
+                throw new Error('Event ID is not available')
             }
 
             const response = await axios.put(
@@ -101,29 +101,29 @@ export function TicketDetailsCard({
                         Authorization: `Bearer ${getAuthToken()}`,
                     },
                 },
-            );
-            return response.data;
+            )
+            return response.data
         },
         onSuccess: () => {
             toast({
-                variant: "default",
-                title: "Tickets Created",
-                description: "Your tickets have been successfully created.",
-            });
-            onNext();
+                variant: 'default',
+                title: 'Tickets Created',
+                description: 'Your tickets have been successfully created.',
+            })
+            onNext()
         },
         onError: () => {
             toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: "There was a problem with your request.",
-            });
+                variant: 'destructive',
+                title: 'Uh oh! Something went wrong.',
+                description: 'There was a problem with your request.',
+            })
         },
-    });
+    })
 
     const onSubmit = (data: TicketDetailsFormValues) => {
-        mutation.mutate(data);
-    };
+        mutation.mutate(data)
+    }
 
     return (
         <Card>
@@ -208,7 +208,7 @@ export function TicketDetailsCard({
                         className="gap-1"
                         onClick={() =>
                             append({
-                                name: "",
+                                name: '',
                                 tickets_allocated: 0,
                                 price: 0,
                             })
@@ -230,11 +230,11 @@ export function TicketDetailsCard({
                         {mutation.isPending ? (
                             <Loader2 className="animate-spin" />
                         ) : (
-                            "Save"
+                            'Save'
                         )}
                     </Button>
                 </CardFooter>
             </form>
         </Card>
-    );
+    )
 }

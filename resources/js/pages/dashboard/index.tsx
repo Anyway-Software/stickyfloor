@@ -1,6 +1,6 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -8,10 +8,10 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Loading } from "@/components/ui/loading";
-import { Progress } from "@/components/ui/progress";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+} from '@/components/ui/dropdown-menu'
+import { Loading } from '@/components/ui/loading'
+import { Progress } from '@/components/ui/progress'
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import {
     Table,
     TableBody,
@@ -19,8 +19,8 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/ui/table";
-import { Link, useNavigate } from "@tanstack/react-router";
+} from '@/components/ui/table'
+import { Link, useNavigate } from '@tanstack/react-router'
 import {
     Activity,
     ArrowUpRight,
@@ -30,68 +30,68 @@ import {
     Menu,
     Package2,
     Users,
-} from "lucide-react";
-import React, { useEffect, useState } from "react";
-import { api } from "../../api";
+} from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { api } from '../../api'
 
 type TicketCategory = {
-    id: string;
-    event_id: string;
-    name: string;
-    description: string;
-    tickets_allocated: number;
-    tickets_sold: number;
-    price: number;
-    start_time: string;
-    end_time: string;
-    area_name: string;
-    created_at: string;
-    updated_at: string;
-};
+    id: string
+    event_id: string
+    name: string
+    description: string
+    tickets_allocated: number
+    tickets_sold: number
+    price: number
+    start_time: string
+    end_time: string
+    area_name: string
+    created_at: string
+    updated_at: string
+}
 
 type Event = {
-    id: string;
-    name: string;
-    venue_name: string;
-    description: string;
-    ticket_category: TicketCategory[];
-};
+    id: string
+    name: string
+    venue_name: string
+    description: string
+    ticket_category: TicketCategory[]
+}
 
 export function Dashboard() {
-    const [userName, setUserName] = useState("");
-    const [events, setEvents] = useState<Event[]>([]);
-    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
+    const [userName, setUserName] = useState('')
+    const [events, setEvents] = useState<Event[]>([])
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     useEffect(() => {
-        api.get("/auth/user")
+        api.get('/auth/user')
             .then((response) => {
-                setUserName(response.data.name);
+                setUserName(response.data.name)
             })
             .catch((error) => {
-                console.error("Error fetching user data:", error);
-            });
+                console.error('Error fetching user data:', error)
+            })
 
-        api.get("/events")
+        api.get('/events')
             .then((response) => {
-                setEvents(response.data);
+                setEvents(response.data)
                 if (response.data.length > 0) {
-                    setSelectedEvent(response.data[0]);
+                    setSelectedEvent(response.data[0])
                 }
             })
             .catch((error) => {
-                console.error("Error fetching events:", error);
-            });
-    }, [navigate]);
+                console.error('Error fetching events:', error)
+            })
+    }, [navigate])
 
     const handleLogout = () => {
-        localStorage.removeItem("api_token");
-        navigate({ to: "/login" });
-    };
+        localStorage.removeItem('api_token')
+        navigate({ to: '/login' })
+    }
 
     if (!userName) {
-        return <Loading />;
+        return <Loading />
     }
 
     return (
@@ -205,7 +205,7 @@ export function Dashboard() {
                                 >
                                     {selectedEvent
                                         ? selectedEvent.name
-                                        : "Select an event"}
+                                        : 'Select an event'}
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent>
@@ -352,7 +352,7 @@ export function Dashboard() {
                                                     ticketCategory.tickets_sold *
                                                         ticketCategory.price,
                                                 0,
-                                            );
+                                            )
 
                                         return (
                                             <React.Fragment key={event.id}>
@@ -387,11 +387,11 @@ export function Dashboard() {
                                                                     <strong>
                                                                         Tickets
                                                                         Sold:
-                                                                    </strong>{" "}
+                                                                    </strong>{' '}
                                                                     {
                                                                         ticketCategory.tickets_sold
-                                                                    }{" "}
-                                                                    /{" "}
+                                                                    }{' '}
+                                                                    /{' '}
                                                                     {
                                                                         ticketCategory.tickets_allocated
                                                                     }
@@ -412,7 +412,7 @@ export function Dashboard() {
                                                                     >
                                                                         $
                                                                         {ticketCategory.tickets_sold *
-                                                                            ticketCategory.price}{" "}
+                                                                            ticketCategory.price}{' '}
                                                                         / $
                                                                         {ticketCategory.tickets_allocated *
                                                                             ticketCategory.price}
@@ -423,7 +423,7 @@ export function Dashboard() {
                                                     </TableCell>
                                                 </TableRow>
                                             </React.Fragment>
-                                        );
+                                        )
                                     })}
                                 </TableBody>
                             </Table>
@@ -540,5 +540,5 @@ export function Dashboard() {
                 </div>
             </main>
         </div>
-    );
+    )
 }

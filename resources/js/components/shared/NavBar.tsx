@@ -15,9 +15,9 @@ import {
     Calendar,
     Turtle,
     PlusCircle,
-} from "lucide-react";
+} from 'lucide-react'
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 import {
     Drawer,
     DrawerContent,
@@ -25,38 +25,38 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from "@/components/ui/drawer";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+} from '@/components/ui/drawer'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
     Select,
     SelectContent,
     SelectItem,
     SelectTrigger,
     SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
+} from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
 import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-} from "@/components/ui/tooltip";
+} from '@/components/ui/tooltip'
 
 const navItems = [
-    { label: "Dashboard", icon: SquareTerminal },
-    { label: "Events", icon: Calendar },
-    { label: "Create Event", icon: PlusCircle },
-    { label: "Tickets", icon: Ticket },
-    { label: "Customers", icon: SquareUser },
-    { label: "Reports", icon: Book },
-    { label: "Settings", icon: Settings2 },
-];
+    { label: 'Dashboard', icon: SquareTerminal },
+    { label: 'Events', icon: Calendar },
+    { label: 'Create Event', icon: PlusCircle },
+    { label: 'Tickets', icon: Ticket },
+    { label: 'Customers', icon: SquareUser },
+    { label: 'Reports', icon: Book },
+    { label: 'Settings', icon: Settings2 },
+]
 
 const bottomNavItems = [
-    { label: "Help", icon: LifeBuoy },
-    { label: "Account", icon: SquareUser },
-];
+    { label: 'Help', icon: LifeBuoy },
+    { label: 'Account', icon: SquareUser },
+]
 
 export function NavShell({ children }: { children: any }) {
     return (
@@ -110,5 +110,5 @@ export function NavShell({ children }: { children: any }) {
             </aside>
             <div className="flex flex-col pt-10 bg-muted">{children}</div>
         </div>
-    );
+    )
 }

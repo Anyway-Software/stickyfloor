@@ -1,68 +1,65 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import {
     useMutation,
     QueryClient,
     QueryClientProvider,
-} from "@tanstack/react-query";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { useToast } from "@/components/ui/use-toast";
-import { api } from '../../api';
+} from '@tanstack/react-query'
+import axios from 'axios'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { useToast } from '@/components/ui/use-toast'
+import { api } from '../../api'
 
 const schema = z.object({
-    email: z.string().email("Invalid email address"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-});
+    email: z.string().email('Invalid email address'),
+    password: z.string().min(6, 'Password must be at least 6 characters'),
+})
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>
 
 async function loginUser(userData: FormData) {
-    const response = await api.post(
-        "/auth/login",
-        userData,
-    );
-    return response.data;
+    const response = await api.post('/auth/login', userData)
+    return response.data
 }
 
 export function Login() {
-    const queryClient = new QueryClient();
-    const navigate = useNavigate();
-    const { toast } = useToast();
+    const queryClient = new QueryClient()
+    const navigate = useNavigate()
+    const { toast } = useToast()
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(schema),
-    });
+    })
 
     const mutation = useMutation({
         mutationFn: loginUser,
         onSuccess: (data) => {
-            localStorage.setItem('api_token', data.accessToken);
+            localStorage.setItem('api_token', data.accessToken)
             toast({
-                title: "Login Successful",
-                description: "You have successfully logged in.",
-            });
-            navigate({ to: "/dashboard" });
+                title: 'Login Successful',
+                description: 'You have successfully logged in.',
+            })
+            navigate({ to: '/dashboard' })
         },
         onError: (error) => {
             toast({
-                title: "Login Failed",
-                description: "Invalid email or password. Please try again.",
-            });
-            console.error("Login failed:", error);
+                title: 'Login Failed',
+                description: 'Invalid email or password. Please try again.',
+            })
+            console.error('Login failed:', error)
         },
-    });
+    })
 
     const onSubmit = (data: FormData) => {
-        mutation.mutate(data);
-    };
+        mutation.mutate(data)
+    }
 
     // const handleGoogleLogin = () => {
     //     window.location.href = "/auth/google/redirect";
@@ -89,7 +86,7 @@ export function Login() {
                                     id="email"
                                     type="email"
                                     placeholder="m@example.com"
-                                    {...register("email")}
+                                    {...register('email')}
                                 />
                                 {errors.email && (
                                     <p className="text-red-500">
@@ -110,7 +107,7 @@ export function Login() {
                                 <Input
                                     id="password"
                                     type="password"
-                                    {...register("password")}
+                                    {...register('password')}
                                 />
                                 {errors.password && (
                                     <p className="text-red-500">
@@ -126,7 +123,7 @@ export function Login() {
                             </Button> */}
                         </div>
                         <div className="mt-4 text-center text-sm">
-                            Don&apos;t have an account?{" "}
+                            Don&apos;t have an account?{' '}
                             <Link href="/register" className="underline">
                                 Sign up
                             </Link>
@@ -138,14 +135,14 @@ export function Login() {
                     style={{
                         backgroundImage:
                             'url("https://anyway.software/_ipx/w_1080,q_75/%2F_next%2Fstatic%2Fmedia%2Ftim.b4f6f12b.jpeg?url=%2F_next%2Fstatic%2Fmedia%2Ftim.b4f6f12b.jpeg&w=1080&q=75")',
-                        backgroundRepeat: "repeat",
-                        backgroundSize: "100px 100px",
-                        height: "75vh",
-                        width: "100%",
-                        rotate: "178deg",
+                        backgroundRepeat: 'repeat',
+                        backgroundSize: '100px 100px',
+                        height: '75vh',
+                        width: '100%',
+                        rotate: '178deg',
                     }}
                 ></div>
             </div>
         </QueryClientProvider>
-    );
+    )
 }

@@ -1,75 +1,72 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
 import {
     useMutation,
     QueryClient,
     QueryClientProvider,
-} from "@tanstack/react-query";
-import axios from "axios";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { useToast } from "@/components/ui/use-toast";
-import { api } from "../../api"
+} from '@tanstack/react-query'
+import axios from 'axios'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Link, useNavigate } from '@tanstack/react-router'
+import { useToast } from '@/components/ui/use-toast'
+import { api } from '../../api'
 
 const schema = z
     .object({
-        name: z.string().min(1, "Name is required"),
-        email: z.string().email("Invalid email address"),
-        password: z.string().min(6, "Password must be at least 6 characters"),
-        c_password: z.string().min(6, "Password must be at least 6 characters"),
+        name: z.string().min(1, 'Name is required'),
+        email: z.string().email('Invalid email address'),
+        password: z.string().min(6, 'Password must be at least 6 characters'),
+        c_password: z.string().min(6, 'Password must be at least 6 characters'),
     })
     .refine((data) => data.password === data.c_password, {
-        message: "Passwords must match",
-        path: ["c_password"],
-    });
+        message: 'Passwords must match',
+        path: ['c_password'],
+    })
 
-type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>
 
 async function registerUser(userData: FormData) {
-    const response = await api.post(
-        "/auth/register",
-        userData,
-    );
-    return response.data;
+    const response = await api.post('/auth/register', userData)
+    return response.data
 }
 
 export function Register() {
-    const queryClient = new QueryClient();
-    const navigate = useNavigate();
-    const { toast } = useToast();
+    const queryClient = new QueryClient()
+    const navigate = useNavigate()
+    const { toast } = useToast()
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(schema),
-    });
+    })
 
     const mutation = useMutation({
         mutationFn: registerUser,
         onSuccess: () => {
             toast({
-                title: "Registration Successful",
-                description: "You have successfully registered. Please log in.",
-            });
-            navigate({ to: "/login" });
+                title: 'Registration Successful',
+                description: 'You have successfully registered. Please log in.',
+            })
+            navigate({ to: '/login' })
         },
         onError: (error) => {
             toast({
-                title: "Registration Failed",
+                title: 'Registration Failed',
                 description:
-                    "There was an error registering your account. Please try again.",
-            });
-            console.error("Registration failed:", error);
+                    'There was an error registering your account. Please try again.',
+            })
+            console.error('Registration failed:', error)
         },
-    });
+    })
 
     const onSubmit = (data: FormData) => {
-        mutation.mutate(data);
-    };
+        mutation.mutate(data)
+    }
 
     return (
         <QueryClientProvider client={queryClient}>
@@ -93,7 +90,7 @@ export function Register() {
                                     id="name"
                                     type="text"
                                     placeholder="John Doe"
-                                    {...register("name")}
+                                    {...register('name')}
                                 />
                                 {errors.name && (
                                     <p className="text-red-500">
@@ -107,7 +104,7 @@ export function Register() {
                                     id="email"
                                     type="email"
                                     placeholder="m@example.com"
-                                    {...register("email")}
+                                    {...register('email')}
                                 />
                                 {errors.email && (
                                     <p className="text-red-500">
@@ -120,7 +117,7 @@ export function Register() {
                                 <Input
                                     id="password"
                                     type="password"
-                                    {...register("password")}
+                                    {...register('password')}
                                 />
                                 {errors.password && (
                                     <p className="text-red-500">
@@ -135,7 +132,7 @@ export function Register() {
                                 <Input
                                     id="c_password"
                                     type="password"
-                                    {...register("c_password")}
+                                    {...register('c_password')}
                                 />
                                 {errors.c_password && (
                                     <p className="text-red-500">
@@ -148,7 +145,7 @@ export function Register() {
                             </Button>
                         </div>
                         <div className="mt-4 text-center text-sm">
-                            Already have an account?{" "}
+                            Already have an account?{' '}
                             <Link href="/login" className="underline">
                                 Login
                             </Link>
@@ -160,13 +157,13 @@ export function Register() {
                     style={{
                         backgroundImage:
                             'url("https://anyway.software/_ipx/w_1080,q_75/%2F_next%2Fstatic%2Fmedia%2Ftim.b4f6f12b.jpeg?url=%2F_next%2Fstatic%2Fmedia%2Ftim.b4f6f12b.jpeg&w=1080&q=75")',
-                        backgroundRepeat: "repeat",
-                        backgroundSize: "100px 100px",
-                        height: "100vh",
-                        width: "100%",
+                        backgroundRepeat: 'repeat',
+                        backgroundSize: '100px 100px',
+                        height: '100vh',
+                        width: '100%',
                     }}
                 ></div>
             </div>
         </QueryClientProvider>
-    );
+    )
 }

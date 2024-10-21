@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
     Card,
     CardContent,
@@ -6,39 +6,39 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { DatePicker } from "./DatePicker";
-import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
-import { toast } from "@/components/ui/use-toast";
-import getAuthToken from "@/lib/getAuthToken";
-import { Loader2 } from "lucide-react";
+} from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Textarea } from '@/components/ui/textarea'
+import { Button } from '@/components/ui/button'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
+import { DatePicker } from './DatePicker'
+import { useMutation } from '@tanstack/react-query'
+import axios from 'axios'
+import { toast } from '@/components/ui/use-toast'
+import getAuthToken from '@/lib/getAuthToken'
+import { Loader2 } from 'lucide-react'
 
 interface EventDetailsCardProps {
-    onNext: () => void;
-    setEventId: (id: string) => void;
-    onEventSaved: () => void;
-    disabled: boolean;
+    onNext: () => void
+    setEventId: (id: string) => void
+    onEventSaved: () => void
+    disabled: boolean
 }
 
 const eventDetailsSchema = z.object({
-    eventName: z.string().min(1, "Event Name is required"),
+    eventName: z.string().min(1, 'Event Name is required'),
     eventDate: z
         .date()
-        .refine((val) => !isNaN(val.getTime()), "Event Date is required"),
-    venueName: z.string().min(1, "Venue Name is required"),
+        .refine((val) => !isNaN(val.getTime()), 'Event Date is required'),
+    venueName: z.string().min(1, 'Venue Name is required'),
     eventDescription: z.string().optional(),
     venueAddress: z.string().optional(),
-});
+})
 
-type EventDetailsFormValues = z.infer<typeof eventDetailsSchema>;
+type EventDetailsFormValues = z.infer<typeof eventDetailsSchema>
 
 export function EventDetailsCard({
     onNext,
@@ -55,13 +55,13 @@ export function EventDetailsCard({
     } = useForm<EventDetailsFormValues>({
         resolver: zodResolver(eventDetailsSchema),
         defaultValues: {
-            eventName: "",
+            eventName: '',
             eventDate: new Date(),
-            venueName: "",
-            eventDescription: "",
-            venueAddress: "",
+            venueName: '',
+            eventDescription: '',
+            venueAddress: '',
         },
-    });
+    })
 
     const mutation = useMutation({
         mutationFn: async (data: EventDetailsFormValues) => {
@@ -71,38 +71,38 @@ export function EventDetailsCard({
                 description: data.eventDescription,
                 venue_address: data.venueAddress,
                 start: data.eventDate.toISOString(),
-            };
+            }
 
-            const response = await axios.post("/api/events", payload, {
+            const response = await axios.post('/api/events', payload, {
                 headers: {
                     Authorization: `Bearer ${getAuthToken()}`,
                 },
-            });
+            })
 
-            return response.data;
+            return response.data
         },
         onSuccess: (data) => {
-            setEventId(data.id);
-            onEventSaved();
+            setEventId(data.id)
+            onEventSaved()
             toast({
-                variant: "default",
-                title: "Event Created",
-                description: "Your event has been successfully created.",
-            });
-            onNext();
+                variant: 'default',
+                title: 'Event Created',
+                description: 'Your event has been successfully created.',
+            })
+            onNext()
         },
         onError: () => {
             toast({
-                variant: "destructive",
-                title: "Uh oh! Something went wrong.",
-                description: "There was a problem with your request.",
-            });
+                variant: 'destructive',
+                title: 'Uh oh! Something went wrong.',
+                description: 'There was a problem with your request.',
+            })
         },
-    });
+    })
 
     const onSubmit = (data: EventDetailsFormValues) => {
-        mutation.mutate(data);
-    };
+        mutation.mutate(data)
+    }
 
     return (
         <Card>
@@ -117,10 +117,10 @@ export function EventDetailsCard({
                     <div className="grid gap-6">
                         <div className="grid gap-3">
                             <Label htmlFor="name">
-                                Event Name{" "}
+                                Event Name{' '}
                                 <span className="text-red-500">*</span>
                             </Label>
-                            <Input id="name" {...register("eventName")} />
+                            <Input id="name" {...register('eventName')} />
                             {errors.eventName && (
                                 <span className="text-red-500 text-xs">
                                     {errors.eventName.message}
@@ -130,12 +130,12 @@ export function EventDetailsCard({
 
                         <div className="grid gap-3">
                             <Label htmlFor="date">
-                                Event Date{" "}
+                                Event Date{' '}
                                 <span className="text-red-500">*</span>
                             </Label>
                             <DatePicker
-                                value={new Date("2024-01-01")}
-                                onChange={(date) => setValue("eventDate", date)}
+                                value={new Date('2024-01-01')}
+                                onChange={(date) => setValue('eventDate', date)}
                             />
                             {errors.eventDate && (
                                 <span className="text-red-500 text-xs">
@@ -145,10 +145,10 @@ export function EventDetailsCard({
                         </div>
                         <div className="grid gap-3">
                             <Label htmlFor="venue">
-                                Venue Name{" "}
+                                Venue Name{' '}
                                 <span className="text-red-500">*</span>
                             </Label>
-                            <Input id="venue" {...register("venueName")} />
+                            <Input id="venue" {...register('venueName')} />
                             {errors.venueName && (
                                 <span className="text-red-500 text-xs">
                                     {errors.venueName.message}
@@ -157,7 +157,7 @@ export function EventDetailsCard({
                         </div>
                         <div className="grid gap-3">
                             <Label htmlFor="address">Venue Address</Label>
-                            <Input id="address" {...register("venueAddress")} />
+                            <Input id="address" {...register('venueAddress')} />
                         </div>
                         <div className="grid gap-3">
                             <Label htmlFor="description">
@@ -165,7 +165,7 @@ export function EventDetailsCard({
                             </Label>
                             <Textarea
                                 id="description"
-                                {...register("eventDescription")}
+                                {...register('eventDescription')}
                             />
                         </div>
                     </div>
@@ -181,12 +181,12 @@ export function EventDetailsCard({
                             {mutation.isPending ? (
                                 <Loader2 className="animate-spin" />
                             ) : (
-                                "Save"
+                                'Save'
                             )}
                         </Button>
                     </CardFooter>
                 )}
             </form>
         </Card>
-    );
+    )
 }
