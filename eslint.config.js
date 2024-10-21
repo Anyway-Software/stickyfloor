@@ -6,7 +6,17 @@ import prettier from 'eslint-config-prettier' // Disables ESLint rules that conf
 import prettierPlugin from 'eslint-plugin-prettier' // Runs Prettier as an ESLint rule
 
 export default [
-    { files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'] },
+    {
+        files: ['**/*.{js,mjs,cjs,ts,jsx,tsx}'],
+    },
+    {
+        ignores: [
+            'node_modules/**',
+            'public/build/**',
+            'public/build/assets/**',
+            'vendor/**',
+        ],
+    },
     { languageOptions: { globals: globals.browser } },
     pluginJs.configs.recommended,
     ...tseslint.configs.recommended,
