@@ -19,23 +19,6 @@ import {
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import {
-    Drawer,
-    DrawerContent,
-    DrawerDescription,
-    DrawerHeader,
-    DrawerTitle,
-    DrawerTrigger,
-} from '@/components/ui/drawer'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import {
     Tooltip,
@@ -76,7 +59,6 @@ export function NavShell({ children }: { children: any }) {
         navigate({ to: '/login' })
     }
 
-
     return (
         <div className="grid h-screen w-full pl-[53px]">
             <aside className="inset-y fixed left-0 z-20 flex h-full flex-col border-r">
@@ -110,20 +92,17 @@ export function NavShell({ children }: { children: any }) {
                         ))}
                     </nav>
                     <nav className="mt-auto grid gap-1 p-2">
-                        {bottomNavItems.map((item) => (
-                            <Tooltip key={item.label}>
+                            <Tooltip key={'Account'}>
                                 <TooltipTrigger asChild>
                                 <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                    <Button
-                                        variant="secondary"
+                                <Button
+                                        variant="ghost"
                                         size="icon"
-                                        // className="rounded-full"
+                                        className="mt-auto rounded-lg"
+                                        aria-label={'Account'}
                                     >
-                                        <SquareUser className="h-5 w-5" />
-                                        <span className="sr-only">
-                                            Toggle user menu
-                                        </span>
+                                        <SquareUser className="size-5" />
                                     </Button>
                                 </DropdownMenuTrigger>
                                 <DropdownMenuContent align="end">
@@ -140,22 +119,11 @@ export function NavShell({ children }: { children: any }) {
                                     </DropdownMenuItem>
                                 </DropdownMenuContent>
                                 </DropdownMenu>
-
-
-                                    {/* <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        className="mt-auto rounded-lg"
-                                        aria-label={item.label}
-                                    >
-                                        <item.icon className="size-5" />
-                                    </Button> */}
                                 </TooltipTrigger>
                                 <TooltipContent side="right" sideOffset={5}>
-                                    {item.label}
+                                    Account
                                 </TooltipContent>
                             </Tooltip>
-                        ))}
                     </nav>
                 </TooltipProvider>
             </aside>
