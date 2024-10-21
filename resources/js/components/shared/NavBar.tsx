@@ -74,7 +74,14 @@ export function NavShell({ children }: { children: any }) {
                         {navItems.map((item) => (
                             <Tooltip key={item.label}>
                                 <TooltipTrigger asChild>
-                                    <Link to={item.route} className={location.pathname === item.route ? "bg-green" : ""}>
+                                    <Link
+                                        to={item.route}
+                                        className={
+                                            location.pathname === item.route
+                                                ? 'bg-green'
+                                                : ''
+                                        }
+                                    >
                                         <Button
                                             variant="ghost"
                                             size="icon"
@@ -92,38 +99,44 @@ export function NavShell({ children }: { children: any }) {
                         ))}
                     </nav>
                     <nav className="mt-auto grid gap-1 p-2">
-                            <Tooltip key={'Account'}>
-                                <TooltipTrigger asChild>
+                        <Tooltip key={'Account'}>
+                            <TooltipTrigger asChild>
                                 <DropdownMenu>
-                                <DropdownMenuTrigger asChild>
-                                <Button
-                                        variant="ghost"
-                                        size="icon"
-                                        className="mt-auto rounded-lg"
-                                        aria-label={'Account'}
-                                    >
-                                        <SquareUser className="size-5" />
-                                    </Button>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent align="end">
-                                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem>Settings</DropdownMenuItem>
-                                    <DropdownMenuItem>Support</DropdownMenuItem>
-                                    <DropdownMenuSeparator />
-                                    <DropdownMenuItem
-                                        onSelect={handleLogout}
-                                        // className=""
-                                    >
-                                        Logout
-                                    </DropdownMenuItem>
-                                </DropdownMenuContent>
+                                    <DropdownMenuTrigger asChild>
+                                        <Button
+                                            variant="ghost"
+                                            size="icon"
+                                            className="mt-auto rounded-lg"
+                                            aria-label={'Account'}
+                                        >
+                                            <SquareUser className="size-5" />
+                                        </Button>
+                                    </DropdownMenuTrigger>
+                                    <DropdownMenuContent align="end">
+                                        <DropdownMenuLabel>
+                                            My Account
+                                        </DropdownMenuLabel>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem>
+                                            Settings
+                                        </DropdownMenuItem>
+                                        <DropdownMenuItem>
+                                            Support
+                                        </DropdownMenuItem>
+                                        <DropdownMenuSeparator />
+                                        <DropdownMenuItem
+                                            onSelect={handleLogout}
+                                            // className=""
+                                        >
+                                            Logout
+                                        </DropdownMenuItem>
+                                    </DropdownMenuContent>
                                 </DropdownMenu>
-                                </TooltipTrigger>
-                                <TooltipContent side="right" sideOffset={5}>
-                                    Account
-                                </TooltipContent>
-                            </Tooltip>
+                            </TooltipTrigger>
+                            <TooltipContent side="right" sideOffset={5}>
+                                Account
+                            </TooltipContent>
+                        </Tooltip>
                     </nav>
                 </TooltipProvider>
             </aside>
