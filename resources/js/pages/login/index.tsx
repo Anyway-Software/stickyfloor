@@ -124,7 +124,7 @@ export function Login() {
                         </div>
                         <div className="mt-4 text-center text-sm">
                             Don&apos;t have an account?{' '}
-                            <Link href="/register" className="underline">
+                            <Link to="/register" className="underline">
                                 Sign up
                             </Link>
                         </div>
@@ -133,8 +133,7 @@ export function Login() {
                 <div
                     className="hidden bg-muted lg:block"
                     style={{
-                        backgroundImage:
-                            'url("https://anyway.software/_ipx/w_1080,q_75/%2F_next%2Fstatic%2Fmedia%2Ftim.b4f6f12b.jpeg?url=%2F_next%2Fstatic%2Fmedia%2Ftim.b4f6f12b.jpeg&w=1080&q=75")',
+                        backgroundImage: 'url("./logo.webp")',
                         backgroundRepeat: 'repeat',
                         backgroundSize: '100px 100px',
                         height: '75vh',
