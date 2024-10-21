@@ -45,11 +45,6 @@ const navItems = [
     // { label: 'Settings', icon: Settings2 },
 ]
 
-const bottomNavItems = [
-    // { label: 'Help', icon: LifeBuoy },
-    { label: 'Account', icon: SquareUser, route: '/account' },
-]
-
 export function NavShell({ children }: { children: any }) {
     const location = useLocation()
     const navigate = useNavigate()
@@ -126,7 +121,6 @@ export function NavShell({ children }: { children: any }) {
                                         <DropdownMenuSeparator />
                                         <DropdownMenuItem
                                             onSelect={handleLogout}
-                                            // className=""
                                         >
                                             Logout
                                         </DropdownMenuItem>

@@ -87,9 +87,11 @@ export function Dashboard() {
             <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
                 <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
                     {userName && (
-                        <div className="flex items-center gap-2 px-3">
-                            <span>{userName}'s Dashboard</span>
-                        </div>
+                        <CardHeader className="flex flex-row items-center">
+                            <div className="grid gap-2">
+                                <CardTitle>{userName}'s Dashboard</CardTitle>
+                            </div>
+                        </CardHeader>
                     )}
                 </div>
             </header>
@@ -109,11 +111,29 @@ export function Dashboard() {
                                 <TableHeader>
                                     <TableRow>
                                         <TableHead>Event</TableHead>
-                                        <TableHead>Ticket Categories</TableHead>
+                                        <TableHead>Total Tickets</TableHead>
+                                        <TableHead>Total Revenue</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
                                     {events.map((event) => {
+                                        // Calculate total tickets sold and allocated
+                                        const totalTicketsSold =
+                                            event.ticket_category.reduce(
+                                                (acc, ticketCategory) =>
+                                                    acc +
+                                                    ticketCategory.tickets_sold,
+                                                0,
+                                            )
+                                        const totalTicketsAllocated =
+                                            event.ticket_category.reduce(
+                                                (acc, ticketCategory) =>
+                                                    acc +
+                                                    ticketCategory.tickets_allocated,
+                                                0,
+                                            )
+
+                                        // Calculate total revenue
                                         const totalRevenue =
                                             event.ticket_category.reduce(
                                                 (acc, ticketCategory) =>
@@ -122,6 +142,20 @@ export function Dashboard() {
                                                         ticketCategory.price,
                                                 0,
                                             )
+                                        const totalPotentialRevenue =
+                                            event.ticket_category.reduce(
+                                                (acc, ticketCategory) =>
+                                                    acc +
+                                                    ticketCategory.tickets_allocated *
+                                                        ticketCategory.price,
+                                                0,
+                                            )
+
+                                        // Calculate progress percentage
+                                        const progressPercentage =
+                                            (totalTicketsSold /
+                                                totalTicketsAllocated) *
+                                            100
 
                                         return (
                                             <React.Fragment key={event.id}>
@@ -130,65 +164,34 @@ export function Dashboard() {
                                                         <div className="text-lg font-medium">
                                                             {event.name}
                                                         </div>
-                                                        <br></br>
                                                         <div className="text-sm font-medium">
                                                             {event.venue_name}
                                                         </div>
                                                     </TableCell>
                                                     <TableCell>
-                                                        {event.ticket_category.map(
-                                                            (
-                                                                ticketCategory,
-                                                            ) => (
-                                                                <div
-                                                                    key={
-                                                                        ticketCategory.id
-                                                                    }
-                                                                    className="mb-4"
-                                                                >
-                                                                    <strong>
-                                                                        {
-                                                                            ticketCategory.name
-                                                                        }
-                                                                        :
-                                                                    </strong>
-                                                                    <br />
-                                                                    <strong>
-                                                                        Tickets
-                                                                        Sold:
-                                                                    </strong>{' '}
-                                                                    {
-                                                                        ticketCategory.tickets_sold
-                                                                    }{' '}
-                                                                    /{' '}
-                                                                    {
-                                                                        ticketCategory.tickets_allocated
-                                                                    }
-                                                                    <Progress
-                                                                        value={
-                                                                            (ticketCategory.tickets_sold /
-                                                                                ticketCategory.tickets_allocated) *
-                                                                            100
-                                                                        }
-                                                                        colorScheme="green"
-                                                                        size="sm"
-                                                                    />
-                                                                    <div
-                                                                        key={
-                                                                            ticketCategory.id
-                                                                        }
-                                                                        className="mb-4"
-                                                                    >
-                                                                        $
-                                                                        {ticketCategory.tickets_sold *
-                                                                            ticketCategory.price}{' '}
-                                                                        / $
-                                                                        {ticketCategory.tickets_allocated *
-                                                                            ticketCategory.price}
-                                                                    </div>
-                                                                </div>
-                                                            ),
-                                                        )}
+                                                        <strong>
+                                                            Tickets Sold:
+                                                        </strong>{' '}
+                                                        {totalTicketsSold} /{' '}
+                                                        {totalTicketsAllocated}
+                                                        <Progress
+                                                            value={
+                                                                progressPercentage
+                                                            }
+                                                            colorScheme="green"
+                                                            size="sm"
+                                                        />
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <div>
+                                                            <strong>
+                                                                Total Revenue:
+                                                            </strong>{' '}
+                                                            ${totalRevenue} / $
+                                                            {
+                                                                totalPotentialRevenue
+                                                            }
+                                                        </div>
                                                     </TableCell>
                                                 </TableRow>
                                             </React.Fragment>
