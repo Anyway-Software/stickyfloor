@@ -27,7 +27,9 @@ export default [
                 version: 'detect', // Automatically detect the React version
             },
         },
-        'react/react-in-jsx-scope': 'off', // Disable the rule requiring React in scope
+        rules: {
+            'react/react-in-jsx-scope': 'off', // Disable the rule requiring React in scope
+        },
     },
     prettier, // Disable conflicting ESLint rules
     {
