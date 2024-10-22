@@ -5,6 +5,8 @@ import {
     PlusCircle,
     Ticket,
     SquareUser,
+    ChevronLeft,
+    ChevronRight,
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
@@ -41,18 +43,8 @@ export function NavShell({ children }: { children: any }) {
         return storedState === null ? true : JSON.parse(storedState)
     })
 
-    const [isTransitionComplete, setIsTransitionComplete] = useState(isExpanded)
-
-    // Update local storage whenever the state changes
     useEffect(() => {
         localStorage.setItem('sidebar-expanded', JSON.stringify(isExpanded))
-
-        // Delay setting the transition complete state to match the expansion duration
-        const timeout = setTimeout(() => {
-            setIsTransitionComplete(isExpanded)
-        }, 300) // Match this duration with the CSS transition duration
-
-        return () => clearTimeout(timeout)
     }, [isExpanded])
 
     const handleToggleSidebar = () => {
@@ -68,7 +60,7 @@ export function NavShell({ children }: { children: any }) {
         <div className="flex h-screen w-full">
             <aside
                 className={`flex-shrink-0 transition-all duration-300 ${
-                    isExpanded ? 'w-64' : 'w-14'
+                    isExpanded ? 'w-52' : 'w-14'
                 }`}
             >
                 <div className="flex h-full flex-col border-r transition-all duration-300 relative">
@@ -78,23 +70,20 @@ export function NavShell({ children }: { children: any }) {
                             className="flex items-center gap-2"
                         >
                             <Button
-                                variant="ghost"
+                                variant="outline"
                                 size="icon"
                                 aria-label="Home"
                             >
                                 <img src="/logo.webp" />
                             </Button>
-                            {isExpanded && (
-                                <span
-                                    className={`font-bold whitespace-nowrap transition-opacity duration-300 ${
-                                        isTransitionComplete
-                                            ? 'opacity-100'
-                                            : 'opacity-0'
-                                    }`}
-                                >
-                                    stickyfloor.
-                                </span>
-                            )}
+                            <span
+                                className="font-bold whitespace-nowrap transition-opacity duration-300"
+                                style={{
+                                    overflow: 'hidden',
+                                }}
+                            >
+                                stickyfloor.
+                            </span>
                         </Link>
                         <TooltipProvider>
                             <Tooltip>
@@ -104,7 +93,7 @@ export function NavShell({ children }: { children: any }) {
                                         size="icon"
                                         onClick={handleToggleSidebar}
                                         aria-label="Toggle"
-                                        className={`absolute transition-all ${
+                                        className={`absolute transition-all hover:bg-gray-200 ${
                                             isExpanded ? 'right-2' : '-right-12'
                                         }`}
                                         style={{
@@ -113,7 +102,11 @@ export function NavShell({ children }: { children: any }) {
                                             zIndex: 10,
                                         }}
                                     >
-                                        {isExpanded ? '<' : '>'}
+                                        {isExpanded ? (
+                                            <ChevronLeft />
+                                        ) : (
+                                            <ChevronRight />
+                                        )}
                                     </Button>
                                 </TooltipTrigger>
                                 <TooltipContent side="right" sideOffset={5}>
@@ -129,30 +122,22 @@ export function NavShell({ children }: { children: any }) {
                                     <TooltipTrigger asChild>
                                         <Link
                                             to={item.route}
-                                            className={`flex items-center gap-2 p-2 rounded-md transition-colors ${
+                                            className={`flex items-center gap-2 p-2 rounded-md transition-colors hover:bg-gray-200 ${
                                                 location.pathname === item.route
                                                     ? 'bg-green'
                                                     : ''
                                             }`}
                                             style={{
-                                                height: '48px', // Fixed height for consistency
+                                                height: '48px',
                                                 overflow: 'hidden',
                                                 whiteSpace: 'nowrap',
                                                 textOverflow: 'ellipsis',
                                             }}
                                         >
-                                            <item.icon className="size-5" />
-                                            {isExpanded && (
-                                                <span
-                                                    className={`ml-2 transition-opacity duration-300 ${
-                                                        isTransitionComplete
-                                                            ? 'opacity-100'
-                                                            : 'opacity-0'
-                                                    }`}
-                                                >
-                                                    {item.label}
-                                                </span>
-                                            )}
+                                            <item.icon className="size-5 min-w-5" />
+                                            <span className="ml-2 transition-opacity duration-300">
+                                                {item.label}
+                                            </span>
                                         </Link>
                                     </TooltipTrigger>
                                     {!isExpanded && (
@@ -172,32 +157,22 @@ export function NavShell({ children }: { children: any }) {
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>
                                             <Link
-                                                to="#"
-                                                className={`flex items-center gap-2 p-2 rounded-md transition-colors ${
+                                                // to=""
+                                                className={`flex items-center gap-2 p-2 rounded-md transition-colors hover:bg-gray-200 ${
                                                     location.pathname ===
                                                     '/account'
                                                         ? 'bg-green'
                                                         : ''
                                                 }`}
                                                 style={{
-                                                    height: '48px', // Fixed height for consistency
+                                                    height: '48px',
                                                     overflow: 'hidden',
-                                                    whiteSpace: 'nowrap',
-                                                    textOverflow: 'ellipsis',
                                                 }}
                                             >
-                                                <SquareUser className="size-5" />
-                                                {isExpanded && (
-                                                    <span
-                                                        className={`ml-2 transition-opacity duration-300 ${
-                                                            isTransitionComplete
-                                                                ? 'opacity-100'
-                                                                : 'opacity-0'
-                                                        }`}
-                                                    >
-                                                        Account
-                                                    </span>
-                                                )}
+                                                <SquareUser className="size-5 min-w-5" />
+                                                <span className="ml-2 transition-opacity duration-300">
+                                                    Account
+                                                </span>
                                             </Link>
                                         </DropdownMenuTrigger>
                                         <DropdownMenuContent align="end">
@@ -231,7 +206,7 @@ export function NavShell({ children }: { children: any }) {
                 </div>
             </aside>
             <div className="flex-grow transition-all duration-300">
-                <div className="flex flex-col pt-10 bg-muted">{children}</div>
+                <div className="flex flex-col bg-muted">{children}</div>
             </div>
         </div>
     )

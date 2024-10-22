@@ -89,7 +89,9 @@ export function Dashboard() {
                     {userName && (
                         <CardHeader className="flex flex-row items-center">
                             <div className="grid gap-2">
-                                <CardTitle>{userName}'s Dashboard</CardTitle>
+                                <CardTitle>
+                                    {userName}&apos;s Dashboard
+                                </CardTitle>
                             </div>
                         </CardHeader>
                     )}
