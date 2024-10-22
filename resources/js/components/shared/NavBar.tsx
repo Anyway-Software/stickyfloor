@@ -33,7 +33,7 @@ const navItems = [
     { label: 'Tickets', icon: Ticket, route: '/tickets' },
 ]
 
-export function NavShell({ children }: { children: any }) {
+export function NavShell({ children }: { children: React.JSX.Element }) {
     const location = useLocation()
     const navigate = useNavigate()
 
@@ -64,27 +64,17 @@ export function NavShell({ children }: { children: any }) {
                 }`}
             >
                 <div className="flex h-full flex-col border-r transition-all duration-300 relative">
-                    <div className="border-b p-2 flex items-center justify-between relative">
-                        <Link
-                            to="/dashboard"
-                            className="flex items-center gap-2"
+                    <div className="border-b p-2 flex items-center relative">
+                        <img src="/logo.webp" className={'size-10'} />
+                        <span
+                            className="font-bold whitespace-nowrap transition-opacity duration-300 pl-2"
+                            style={{
+                                overflow: 'hidden',
+                            }}
                         >
-                            <Button
-                                variant="outline"
-                                size="icon"
-                                aria-label="Home"
-                            >
-                                <img src="/logo.webp" />
-                            </Button>
-                            <span
-                                className="font-bold whitespace-nowrap transition-opacity duration-300"
-                                style={{
-                                    overflow: 'hidden',
-                                }}
-                            >
-                                stickyfloor.
-                            </span>
-                        </Link>
+                            stickyfloor.
+                        </span>
+
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
@@ -118,7 +108,10 @@ export function NavShell({ children }: { children: any }) {
                     <TooltipProvider>
                         <nav className="grid gap-1 p-2">
                             {navItems.map((item) => (
-                                <Tooltip key={item.label} disabled={isExpanded}>
+                                <Tooltip
+                                    key={item.label}
+                                    disableHoverableContent={isExpanded}
+                                >
                                     <TooltipTrigger asChild>
                                         <Link
                                             to={item.route}
@@ -152,7 +145,10 @@ export function NavShell({ children }: { children: any }) {
                             ))}
                         </nav>
                         <nav className="mt-auto grid gap-1 p-2">
-                            <Tooltip key={'Account'} disabled={isExpanded}>
+                            <Tooltip
+                                key={'Account'}
+                                disableHoverableContent={isExpanded}
+                            >
                                 <TooltipTrigger asChild>
                                     <DropdownMenu>
                                         <DropdownMenuTrigger asChild>

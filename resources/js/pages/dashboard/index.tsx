@@ -1,10 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import { Loading } from '@/components/ui/loading'
 import { Progress } from '@/components/ui/progress'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import {
     Table,
     TableBody,
@@ -13,17 +11,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { Link, useNavigate } from '@tanstack/react-router'
-import {
-    Activity,
-    ArrowUpRight,
-    CircleUser,
-    CreditCard,
-    DollarSign,
-    Menu,
-    Package2,
-    Users,
-} from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
 import React, { useEffect, useState } from 'react'
 import { api } from '../../api'
 
@@ -53,7 +41,7 @@ type Event = {
 export function Dashboard() {
     const [userName, setUserName] = useState('')
     const [events, setEvents] = useState<Event[]>([])
-    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
+    const [, setSelectedEvent] = useState<Event | null>(null)
 
     const navigate = useNavigate()
 
@@ -84,18 +72,17 @@ export function Dashboard() {
 
     return (
         <div className="flex min-h-screen w-full flex-col">
-            <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
-                <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
-                    {userName && (
-                        <CardHeader className="flex flex-row items-center">
-                            <div className="grid gap-2">
-                                <CardTitle>
-                                    {userName}&apos;s Dashboard
-                                </CardTitle>
-                            </div>
-                        </CardHeader>
-                    )}
-                </div>
+            <header
+                className="sticky top-0 flex items-center gap-4 border-b bg-background px-8"
+                style={{ height: '57px' }}
+            >
+                {userName && (
+                    <CardHeader className="flex flex-row items-center">
+                        <div className="grid gap-2">
+                            <CardTitle>{userName}&apos;s Dashboard</CardTitle>
+                        </div>
+                    </CardHeader>
+                )}
             </header>
             <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
                 <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
@@ -180,8 +167,6 @@ export function Dashboard() {
                                                             value={
                                                                 progressPercentage
                                                             }
-                                                            colorScheme="green"
-                                                            size="sm"
                                                         />
                                                     </TableCell>
                                                     <TableCell>
