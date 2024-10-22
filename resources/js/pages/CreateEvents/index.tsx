@@ -1,10 +1,6 @@
-import { Button } from '@/components/ui/button'
 import { useState } from 'react'
 import { EventDetailsCard } from './components/EventDetailsCard'
 import { TicketDetailsCard } from './components/TicketDetailsCard'
-import { EventCategoryCard } from './components/EventCategoryCard'
-import { EventImagesCard } from './components/EventImagesCard'
-import { EventStatusCard } from './components/EventStatusCard'
 import { CardHeader, CardTitle } from '@/components/ui/card'
 
 export function CreateEvent() {

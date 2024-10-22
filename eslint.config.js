@@ -4,6 +4,7 @@ import tseslint from 'typescript-eslint'
 import pluginReact from 'eslint-plugin-react'
 import prettier from 'eslint-config-prettier' // Disables ESLint rules that conflict with Prettier
 import prettierPlugin from 'eslint-plugin-prettier' // Runs Prettier as an ESLint rule
+import unusedImports from 'eslint-plugin-unused-imports'
 
 export default [
     {
@@ -33,7 +34,7 @@ export default [
     },
     prettier, // Disable conflicting ESLint rules
     {
-        plugins: { prettier: prettierPlugin },
+        plugins: { prettier: prettierPlugin, 'unused-imports': unusedImports },
         rules: {
             'prettier/prettier': [
                 'error',
@@ -43,6 +44,17 @@ export default [
                     htmlWhitespaceSensitivity: 'strict', // Enforce double quotes in HTML
                     trailingComma: 'all', // Enforce trailing commas where valid in ES5
                     semi: false, // No semicolons at the end of lines
+                },
+            ],
+            // Add the rules for removing unused imports
+            'unused-imports/no-unused-imports': 'error',
+            'unused-imports/no-unused-vars': [
+                'warn',
+                {
+                    vars: 'all',
+                    varsIgnorePattern: '^_',
+                    args: 'after-used',
+                    argsIgnorePattern: '^_',
                 },
             ],
         },

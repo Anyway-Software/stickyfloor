@@ -21,6 +21,7 @@
         "eslint-config-prettier": "^9.1.0",
         "eslint-plugin-prettier": "^5.2.1",
         "eslint-plugin-react": "^7.37.1",
+        "eslint-plugin-unused-imports": "^4.1.4",
         "globals": "^15.11.0",
         "laravel-vite-plugin": "^1.0",
         "postcss": "^8.4.38",

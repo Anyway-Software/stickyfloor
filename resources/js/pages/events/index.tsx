@@ -1,10 +1,7 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import { Loading } from '@/components/ui/loading'
 import { Progress } from '@/components/ui/progress'
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import {
     Table,
     TableBody,
@@ -13,17 +10,8 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
-import { Link, useNavigate } from '@tanstack/react-router'
-import {
-    Activity,
-    ArrowUpRight,
-    CircleUser,
-    CreditCard,
-    DollarSign,
-    Menu,
-    Package2,
-    Users,
-} from 'lucide-react'
+import { useNavigate } from '@tanstack/react-router'
+
 import React, { useEffect, useState } from 'react'
 import { api } from '../../api'
 

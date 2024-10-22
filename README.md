@@ -11,6 +11,7 @@
 - `@typescript-eslint/parser`: Allows ESLint to parse TypeScript code.
 - `@typescript-eslint/eslint-plugin`: TypeScript-specific linting rules for ESLint.
 - `eslint-plugin-react`: Lints React-specific code, including JSX and React best practices.
+- `eslint-plugin-unused-imports`: Automatically removes unused imports when running eslint --fix
 
 #### Config files
 - eslint.config.js

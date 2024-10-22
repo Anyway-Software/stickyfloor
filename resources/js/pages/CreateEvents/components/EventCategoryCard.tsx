@@ -14,7 +14,6 @@ import {
     SelectTrigger,
     SelectValue,
 } from '@/components/ui/select'
-import { PlusCircle } from 'lucide-react'
 
 export function EventCategoryCard() {
     return (
