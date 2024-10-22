@@ -115,10 +115,10 @@ export function NavShell({ children }: { children: React.JSX.Element }) {
                                     <TooltipTrigger asChild>
                                         <Link
                                             to={item.route}
-                                            className={`flex items-center gap-2 p-2 rounded-md transition-colors hover:bg-gray-200 ${
+                                            className={`flex items-center gap-2 p-2 rounded-md transition-colors ${
                                                 location.pathname === item.route
                                                     ? 'bg-green'
-                                                    : ''
+                                                    : 'hover:bg-gray-200'
                                             }`}
                                             style={{
                                                 height: '48px',
