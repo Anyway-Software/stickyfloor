@@ -59,7 +59,7 @@ export function NavShell({ children }: { children: React.JSX.Element }) {
     return (
         <div className="flex h-screen w-full">
             <aside
-                className={`fixed top-0 left-0 h-full transition-all duration-300 ${
+                className={`flex-shrink-0 transition-all duration-300 ${
                     isExpanded ? 'w-52' : 'w-14'
                 }`}
             >
@@ -201,13 +201,8 @@ export function NavShell({ children }: { children: React.JSX.Element }) {
                     </TooltipProvider>
                 </div>
             </aside>
-            <div
-                className="flex-grow ml-14 transition-all duration-300"
-                style={{ marginLeft: isExpanded ? '13rem' : '3.5rem' }}
-            >
-                <div className="flex flex-col bg-muted h-full overflow-auto">
-                    {children}
-                </div>
+            <div className="flex-grow transition-all duration-300">
+                <div className="flex flex-col bg-muted">{children}</div>
             </div>
         </div>
     )
