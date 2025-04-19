@@ -175,13 +175,13 @@ export function NavShell({ children }: { children: React.JSX.Element }) {
                                             <DropdownMenuLabel>
                                                 Account
                                             </DropdownMenuLabel>
-                                            <DropdownMenuSeparator />
+                                            {/* <DropdownMenuSeparator />
                                             <DropdownMenuItem>
                                                 Settings
                                             </DropdownMenuItem>
                                             <DropdownMenuItem>
                                                 Support
-                                            </DropdownMenuItem>
+                                            </DropdownMenuItem> */}
                                             <DropdownMenuSeparator />
                                             <DropdownMenuItem
                                                 onSelect={handleLogout}
