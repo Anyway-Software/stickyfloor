@@ -24,7 +24,7 @@ export function CreateEvent() {
         <div className="flex min-h-screen w-full flex-col">
             <header
                 className="sticky top-0 flex items-center gap-4 border-b bg-background px-8"
-                style={{ height: '57px' }}
+                style={{ height: '57px', zIndex: 2 }}
             >
                 <CardHeader className="flex flex-row items-center">
                     <div className="grid gap-2">

@@ -74,7 +74,7 @@ export function Events() {
         <div className="flex min-h-screen w-full flex-col">
             <header
                 className="sticky top-0 flex items-center gap-4 border-b bg-background px-8"
-                style={{ height: '57px' }}
+                style={{ height: '57px', zIndex: 2 }}
             >
                 <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
                     <CardHeader className="flex flex-row items-center">

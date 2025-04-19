@@ -73,8 +73,8 @@ export function Dashboard() {
     return (
         <div className="flex min-h-screen w-full flex-col">
             <header
-                className="sticky top-0 flex items-center gap-4 border-b bg-background px-8"
-                style={{ height: '57px' }}
+                className="sticky top-0 flex items-center gap-4 border-b bg-background px-8 bg-white"
+                style={{ height: '57px', zIndex: 2 }}
             >
                 {userName && (
                     <CardHeader className="flex flex-row items-center">
