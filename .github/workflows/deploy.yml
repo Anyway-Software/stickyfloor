@@ -63,7 +63,7 @@ jobs:
       - name: Install NPM dependencies and build assets
         run: |
           npm install
-          npm run build
+          NODE_OPTIONS="--max-old-space-size=4096" npm run build
         working-directory: ${{ env.DEPLOY_PATH }}
           
       # Step 8: Run Laravel database migrations
