@@ -1,4 +1,3 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 import { Loading } from '@/components/ui/loading'
@@ -85,7 +84,8 @@ export function Dashboard() {
                 )}
             </header>
             <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
-                <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3">
+                {/* <div className="grid gap-4 md:gap-8 lg:grid-cols-2 xl:grid-cols-3"> */}
+                <div className="grid gap-4 md:gap-8">
                     <Card
                         className="xl:col-span-2"
                         x-chunk="dashboard-01-chunk-4"
@@ -189,7 +189,7 @@ export function Dashboard() {
                         </CardContent>
                     </Card>
 
-                    <Card x-chunk="dashboard-01-chunk-5">
+                    {/* <Card x-chunk="dashboard-01-chunk-5">
                         <CardHeader>
                             <CardTitle>Recent Activity</CardTitle>
                         </CardHeader>
@@ -295,7 +295,7 @@ export function Dashboard() {
                                 </div>
                             </div>
                         </CardContent>
-                    </Card>
+                    </Card> */}
                 </div>
             </main>
         </div>
