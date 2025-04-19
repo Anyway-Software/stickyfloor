@@ -13,11 +13,9 @@ jobs:
       DEPLOY_PATH: ${{ secrets.DEPLOY_PATH }}
       
     steps:
-      # Step 1: Check out the repository code
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # # Step 2: Sync updated files to deployment path
       - name: Sync updated files to deployment path
         run: |
           rsync -avz \
@@ -27,7 +25,6 @@ jobs:
             --exclude='storage' \
             ./ ${{ env.DEPLOY_PATH }}
 
-      # Step 3: Copy .env.example to .env and overwrite with secrets
       - name: Set up .env file
         run: |
           cp .env.example .env
@@ -42,45 +39,40 @@ jobs:
           # Add any other environment variables as needed
         working-directory: ${{ env.DEPLOY_PATH }}
 
-      # Step 4: Set up PHP for Laravel
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
 
-      # Step 5: Install Composer dependencies for Laravel
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --optimize-autoloader
         working-directory: ${{ env.DEPLOY_PATH }}
 
-      # Step 6: Set up Node.js for React
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '20'
 
-      # Step 7: Install NPM dependencies and build React assets
       - name: Install NPM dependencies and build assets
         run: |
           npm install
           NODE_OPTIONS="--max-old-space-size=4096" npm run build
         working-directory: ${{ env.DEPLOY_PATH }}
           
-      # Step 8: Run Laravel database migrations
       - name: Run migrations
-        run: php artisan migrate --force # force for deployments so that it doesn't ask for confirmation
+        run: php artisan migrate --force
         working-directory: ${{ env.DEPLOY_PATH }}
 
-      # Step 9: Clear Laravel Cache
-      - name: Clear Laravel Cache
+      - name: Set permissions and clear Laravel cache
         run: |
+          sudo chown -R githubrunner:githubrunner storage bootstrap/cache
+          chmod -R ug+rw storage bootstrap/cache
           php artisan config:cache
           php artisan route:cache
           php artisan view:cache
           php artisan cache:clear
         working-directory: ${{ env.DEPLOY_PATH }}
 
-      # Step 10: Restart PHP and Nginx services to apply changes
       - name: Restart services
         run: |
           sudo systemctl restart php8.2-fpm
