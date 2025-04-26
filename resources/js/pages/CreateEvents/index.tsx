@@ -20,6 +20,8 @@ export function CreateEvent() {
         setEventDetailsSaved(true)
     }
 
+    const isPublished = false // hardcoding isPublished to false here for now
+
     return (
         <div className="flex min-h-screen w-full flex-col">
             <header
@@ -40,7 +42,9 @@ export function CreateEvent() {
                                 onNext={handleNext}
                                 setEventId={setEventId}
                                 onEventSaved={handleEventSaved}
-                                disabled={!eventDetailsSaved}
+                                disabled={!eventDetailsSaved || isPublished}
+                                editingExistingEvent={false}
+                                eventId={null}
                             />
                             {/* <EventCategoryCard /> */}
                         </div>
@@ -53,7 +57,7 @@ export function CreateEvent() {
                                 onPrev={handlePrev}
                                 currentStep={currentStep}
                                 eventId={eventId}
-                                disabled={!eventDetailsSaved}
+                                disabled={!eventDetailsSaved || isPublished}
                             />
                             {/* <EventImagesCard /> */}
                         </div>

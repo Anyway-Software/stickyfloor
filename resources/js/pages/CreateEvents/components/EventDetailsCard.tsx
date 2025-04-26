@@ -26,6 +26,10 @@ interface EventDetailsCardProps {
     setEventId: (id: string) => void
     onEventSaved: () => void
     disabled: boolean
+    initialData?: EventDetailsFormValues // <-- Add this!
+    // isPublished?: boolean // <-- Add this!
+    editingExistingEvent?: boolean // 👈 Add this
+    eventId?: string | null // 👈 Add this
 }
 
 const eventDetailsSchema = z.object({
@@ -46,6 +50,10 @@ export function EventDetailsCard({
     setEventId,
     onEventSaved,
     disabled,
+    initialData,
+    // isPublished,
+    editingExistingEvent,
+    eventId,
 }: EventDetailsCardProps) {
     const {
         register,
@@ -54,7 +62,7 @@ export function EventDetailsCard({
         formState: { errors },
     } = useForm<EventDetailsFormValues>({
         resolver: zodResolver(eventDetailsSchema),
-        defaultValues: {
+        defaultValues: initialData ?? {
             eventName: '',
             eventDate: new Date(),
             venueName: '',
@@ -73,21 +81,28 @@ export function EventDetailsCard({
                 start: data.eventDate.toISOString(),
             }
 
-            const response = await axios.post('/api/events', payload, {
-                headers: {
-                    Authorization: `Bearer ${getAuthToken()}`,
-                },
-            })
-
-            return response.data
+            if (editingExistingEvent && eventId) {
+                return axios.put(`/api/events/${eventId}`, payload, {
+                    headers: {
+                        Authorization: `Bearer ${getAuthToken()}`,
+                    },
+                })
+            } else {
+                return axios.post('/api/events', payload, {
+                    headers: {
+                        Authorization: `Bearer ${getAuthToken()}`,
+                    },
+                })
+            }
         },
         onSuccess: (data) => {
-            setEventId(data.id)
+            const event = data.data
+            setEventId(event.id)
             onEventSaved()
             toast({
                 variant: 'default',
-                title: 'Event Created',
-                description: 'Your event has been successfully created.',
+                title: editingExistingEvent ? 'Event Updated' : 'Event Created',
+                description: `Your event has been successfully ${editingExistingEvent ? 'updated' : 'created'}.`,
             })
             onNext()
         },
