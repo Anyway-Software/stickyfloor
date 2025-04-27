@@ -14,6 +14,14 @@ import { useNavigate } from '@tanstack/react-router'
 
 import React, { useEffect, useState } from 'react'
 import { api } from '../../api'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
+import { toast } from '@/components/ui/use-toast'
 
 type TicketCategory = {
     id: string
@@ -38,7 +46,7 @@ type Event = {
     ticket_category: TicketCategory[]
 }
 
-export function Events() {
+export function ListEvents() {
     const [userName, setUserName] = useState('')
     const [events, setEvents] = useState<Event[]>([])
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null)
@@ -93,6 +101,8 @@ export function Events() {
                                     <TableRow>
                                         <TableHead>Event</TableHead>
                                         <TableHead>Ticket Categories</TableHead>
+                                        <TableHead>Status</TableHead>
+                                        <TableHead>Action</TableHead>
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
@@ -172,6 +182,82 @@ export function Events() {
                                                                 </div>
                                                             ),
                                                         )}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        {event.ticket_category
+                                                            .length > 0
+                                                            ? 'Ready'
+                                                            : 'Draft'}
+                                                    </TableCell>
+                                                    <TableCell>
+                                                        <DropdownMenu>
+                                                            <DropdownMenuTrigger>
+                                                                <Button variant="outline">
+                                                                    ...
+                                                                </Button>
+                                                            </DropdownMenuTrigger>
+                                                            <DropdownMenuContent>
+                                                                <DropdownMenuItem
+                                                                    onClick={() =>
+                                                                        navigate(
+                                                                            {
+                                                                                to: `/edit_event/${event.id}`,
+                                                                            },
+                                                                        )
+                                                                    }
+                                                                >
+                                                                    Edit
+                                                                </DropdownMenuItem>
+                                                                <DropdownMenuItem
+                                                                    onClick={() =>
+                                                                        api
+                                                                            .delete(
+                                                                                `/events/${event.id}`,
+                                                                            )
+                                                                            .then(
+                                                                                () => {
+                                                                                    setEvents(
+                                                                                        (
+                                                                                            prevEvents,
+                                                                                        ) =>
+                                                                                            prevEvents.filter(
+                                                                                                (
+                                                                                                    e,
+                                                                                                ) =>
+                                                                                                    e.id !==
+                                                                                                    event.id,
+                                                                                            ),
+                                                                                    )
+                                                                                    toast(
+                                                                                        {
+                                                                                            variant:
+                                                                                                'default',
+                                                                                            duration: 3000,
+                                                                                            title: 'Event deleted',
+                                                                                            description: `The event has been successfully deleted.`,
+                                                                                        },
+                                                                                    )
+                                                                                    navigate(
+                                                                                        {
+                                                                                            to: '/events',
+                                                                                        },
+                                                                                    )
+                                                                                },
+                                                                                (
+                                                                                    error,
+                                                                                ) => {
+                                                                                    console.error(
+                                                                                        'Error deleting event:',
+                                                                                        error,
+                                                                                    )
+                                                                                },
+                                                                            )
+                                                                    }
+                                                                >
+                                                                    Delete
+                                                                </DropdownMenuItem>
+                                                            </DropdownMenuContent>
+                                                        </DropdownMenu>
                                                     </TableCell>
                                                 </TableRow>
                                             </React.Fragment>

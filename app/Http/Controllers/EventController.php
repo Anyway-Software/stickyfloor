@@ -47,11 +47,13 @@ class EventController extends Controller
      */
     public function show($id)
     {
-        $event = Event::findOrFail($id);
+        $event = Event::where('id', $id)->where('user_id', Auth::id())->first();
 
         if (!$event) {
             return response()->json(['error' => 'Event not found'], 404);
         }
+
+        $event->load('ticketCategory');
 
         return response()->json($event);
     }

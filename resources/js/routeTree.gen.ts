@@ -25,6 +25,7 @@ const DashboardLazyImport = createFileRoute('/dashboard')()
 const CreateeventLazyImport = createFileRoute('/create_event')()
 const AboutLazyImport = createFileRoute('/about')()
 const IndexLazyImport = createFileRoute('/')()
+const EditeventEventIdLazyImport = createFileRoute('/edit_event/$eventId')()
 
 // Create/Update Routes
 
@@ -74,6 +75,13 @@ const IndexLazyRoute = IndexLazyImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+
+const EditeventEventIdLazyRoute = EditeventEventIdLazyImport.update({
+  path: '/edit_event/$eventId',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/edit_event.$eventId.lazy').then((d) => d.Route),
+)
 
 // Populate the FileRoutesByPath interface
 
@@ -142,6 +150,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TicketsLazyImport
       parentRoute: typeof rootRoute
     }
+    '/edit_event/$eventId': {
+      id: '/edit_event/$eventId'
+      path: '/edit_event/$eventId'
+      fullPath: '/edit_event/$eventId'
+      preLoaderRoute: typeof EditeventEventIdLazyImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -157,6 +172,7 @@ export const routeTree = rootRoute.addChildren({
   LoginLazyRoute,
   RegisterLazyRoute,
   TicketsLazyRoute,
+  EditeventEventIdLazyRoute,
 })
 
 /* prettier-ignore-end */
@@ -175,7 +191,8 @@ export const routeTree = rootRoute.addChildren({
         "/google-callback",
         "/login",
         "/register",
-        "/tickets"
+        "/tickets",
+        "/edit_event/$eventId"
       ]
     },
     "/": {
@@ -204,6 +221,9 @@ export const routeTree = rootRoute.addChildren({
     },
     "/tickets": {
       "filePath": "tickets.lazy.tsx"
+    },
+    "/edit_event/$eventId": {
+      "filePath": "edit_event.$eventId.lazy.tsx"
     }
   }
 }

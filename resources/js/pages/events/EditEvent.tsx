@@ -1,12 +1,20 @@
-import { useState } from 'react'
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from 'react'
+import { useParams } from '@tanstack/react-router'
 import { EventDetailsCard } from './components/EventDetailsCard'
 import { TicketDetailsCard } from './components/TicketDetailsCard'
 import { CardHeader, CardTitle } from '@/components/ui/card'
+import axios from 'axios'
+import getAuthToken from '@/lib/getAuthToken'
 
-export function CreateEvent() {
+export function EditEvent() {
+    const params = useParams({ from: '/edit_event/$eventId' })
+    const { eventId } = params
     const [currentStep, setCurrentStep] = useState(0)
-    const [eventId, setEventId] = useState<string | null>(null)
     const [eventDetailsSaved, setEventDetailsSaved] = useState(false)
+    const [initialEventData, setInitialEventData] = useState<any>(null)
+    const [initialTicketData, setInitialTicketData] = useState<any>(null)
+    const [isPublished, setIsPublished] = useState(false)
 
     const handleNext = () => {
         setCurrentStep((prevStep) => prevStep + 1)
@@ -20,7 +28,43 @@ export function CreateEvent() {
         setEventDetailsSaved(true)
     }
 
-    const isPublished = false // hardcoding isPublished to false here for now
+    useEffect(() => {
+        async function fetchEvent() {
+            if (!eventId) return
+
+            const { data: event } = await axios.get(`/api/events/${eventId}`, {
+                headers: {
+                    Authorization: `Bearer ${getAuthToken()}`,
+                },
+            })
+
+            setInitialEventData({
+                eventName: event.name,
+                eventDate: new Date(event.start),
+                venueName: event.venue_name,
+                eventDescription: event.description,
+                venueAddress: event.venue_address,
+            })
+
+            setInitialTicketData({
+                tickets: event.ticket_category.map((ticket: any) => ({
+                    id: ticket.id,
+                    name: ticket.name,
+                    tickets_allocated: ticket.tickets_allocated,
+                    price: ticket.price,
+                })),
+            })
+
+            setIsPublished(event.is_published)
+            setEventDetailsSaved(true) // Assume if loading an existing event, details are already saved
+        }
+
+        fetchEvent()
+    }, [eventId])
+
+    if (!initialEventData || !initialTicketData) {
+        return <div>Loading...</div> // Or a nice spinner if you want
+    }
 
     return (
         <div className="flex min-h-screen w-full flex-col">
@@ -30,7 +74,7 @@ export function CreateEvent() {
             >
                 <CardHeader className="flex flex-row items-center">
                     <div className="grid gap-2">
-                        <CardTitle>Create Evenasdt</CardTitle>
+                        <CardTitle>Edit Event</CardTitle>
                     </div>
                 </CardHeader>
             </header>
@@ -40,11 +84,12 @@ export function CreateEvent() {
                         <div className="space-y-4">
                             <EventDetailsCard
                                 onNext={handleNext}
-                                setEventId={setEventId}
+                                setEventId={() => {}} // We don't need to setEventId again, we already have it
                                 onEventSaved={handleEventSaved}
                                 disabled={!eventDetailsSaved || isPublished}
-                                editingExistingEvent={false}
-                                eventId={null}
+                                editingExistingEvent={true}
+                                eventId={eventId || null}
+                                initialData={initialEventData}
                             />
                             {/* <EventCategoryCard /> */}
                         </div>
@@ -56,8 +101,9 @@ export function CreateEvent() {
                                 onNext={handleNext}
                                 onPrev={handlePrev}
                                 currentStep={currentStep}
-                                eventId={eventId}
+                                eventId={eventId || null}
                                 disabled={!eventDetailsSaved || isPublished}
+                                initialData={initialTicketData}
                             />
                             {/* <EventImagesCard /> */}
                         </div>
