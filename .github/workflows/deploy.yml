@@ -22,7 +22,7 @@ jobs:
             --exclude='.env' \
             --exclude='vendor' \
             --exclude='node_modules' \
-            --exclude='storage' \
+            --exclude='storage/logs/*.log' \
             ./ ${{ env.DEPLOY_PATH }}
 
       - name: Set up .env file
