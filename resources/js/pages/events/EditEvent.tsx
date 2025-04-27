@@ -87,9 +87,9 @@ export function EditEvent() {
                                 setEventId={() => {}} // We don't need to setEventId again, we already have it
                                 onEventSaved={handleEventSaved}
                                 disabled={!eventDetailsSaved || isPublished}
-                                editingExistingEvent={true}
                                 eventId={eventId || null}
                                 initialData={initialEventData}
+                                editingExistingEvent={true}
                             />
                             {/* <EventCategoryCard /> */}
                         </div>
@@ -104,6 +104,7 @@ export function EditEvent() {
                                 eventId={eventId || null}
                                 disabled={!eventDetailsSaved || isPublished}
                                 initialData={initialTicketData}
+                                editingExistingEvent={true}
                             />
                             {/* <EventImagesCard /> */}
                         </div>

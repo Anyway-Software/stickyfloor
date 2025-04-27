@@ -16,6 +16,7 @@ import {
     TableHeader,
     TableRow,
 } from '@/components/ui/table'
+import { useNavigate } from '@tanstack/react-router'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useFieldArray, useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -32,6 +33,7 @@ interface TicketDetailsCardProps {
     eventId: string | null
     disabled: boolean
     initialData?: TicketDetailsFormValues
+    editingExistingEvent?: boolean
 }
 
 const ticketDetailsSchema = z.object({
@@ -56,6 +58,7 @@ export function TicketDetailsCard({
     eventId,
     disabled,
     initialData,
+    editingExistingEvent,
 }: TicketDetailsCardProps) {
     const {
         register,
@@ -67,11 +70,6 @@ export function TicketDetailsCard({
         defaultValues: initialData ?? {
             tickets: [
                 {
-                    name: 'VIP',
-                    tickets_allocated: 50,
-                    price: 150,
-                },
-                {
                     name: 'General',
                     tickets_allocated: 200,
                     price: 50,
@@ -79,6 +77,8 @@ export function TicketDetailsCard({
             ],
         },
     })
+
+    const navigate = useNavigate()
 
     const { fields, append } = useFieldArray({
         control,
@@ -113,6 +113,9 @@ export function TicketDetailsCard({
                 description: 'Your tickets have been successfully created.',
             })
             onNext()
+            if (location.pathname === '/create_event') {
+                navigate({ to: '/events' })
+            }
         },
         onError: () => {
             toast({
@@ -231,6 +234,8 @@ export function TicketDetailsCard({
                     >
                         {mutation.isPending ? (
                             <Loader2 className="animate-spin" />
+                        ) : editingExistingEvent ? (
+                            'Update Event Details'
                         ) : (
                             'Save'
                         )}

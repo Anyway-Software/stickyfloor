@@ -26,10 +26,9 @@ interface EventDetailsCardProps {
     setEventId: (id: string) => void
     onEventSaved: () => void
     disabled: boolean
-    initialData?: EventDetailsFormValues // <-- Add this!
-    // isPublished?: boolean // <-- Add this!
-    editingExistingEvent?: boolean // 👈 Add this
-    eventId?: string | null // 👈 Add this
+    initialData?: EventDetailsFormValues
+    editingExistingEvent?: boolean
+    eventId?: string | null
 }
 
 const eventDetailsSchema = z.object({
@@ -185,22 +184,22 @@ export function EventDetailsCard({
                         </div>
                     </div>
                 </CardContent>
-                {disabled && (
-                    <CardFooter className="p-4 border-t">
-                        <Button
-                            size="sm"
-                            className="w-full"
-                            type="submit"
-                            disabled={mutation.isPending}
-                        >
-                            {mutation.isPending ? (
-                                <Loader2 className="animate-spin" />
-                            ) : (
-                                'Save'
-                            )}
-                        </Button>
-                    </CardFooter>
-                )}
+                <CardFooter className="p-4 border-t">
+                    <Button
+                        size="sm"
+                        className="w-full"
+                        type="submit"
+                        disabled={mutation.isPending}
+                    >
+                        {mutation.isPending ? (
+                            <Loader2 className="animate-spin" />
+                        ) : editingExistingEvent ? (
+                            'Update Event Details'
+                        ) : (
+                            'Save'
+                        )}
+                    </Button>
+                </CardFooter>
             </form>
         </Card>
     )
