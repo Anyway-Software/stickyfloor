@@ -133,8 +133,10 @@ export function TicketDetailsCard({
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Ticket Details</CardTitle>
-                <CardDescription>Specify the ticket details.</CardDescription>
+                <CardTitle>Ticket Categories</CardTitle>
+                <CardDescription>
+                    Specify the ticket categories.
+                </CardDescription>
             </CardHeader>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <CardContent>
@@ -170,6 +172,7 @@ export function TicketDetailsCard({
                                             type="number"
                                             {...register(
                                                 `tickets.${index}.tickets_allocated` as const,
+                                                { valueAsNumber: true },
                                             )}
                                             disabled={disabled}
                                         />
@@ -189,6 +192,7 @@ export function TicketDetailsCard({
                                             type="number"
                                             {...register(
                                                 `tickets.${index}.price` as const,
+                                                { valueAsNumber: true },
                                             )}
                                             disabled={disabled}
                                         />
@@ -235,9 +239,9 @@ export function TicketDetailsCard({
                         {mutation.isPending ? (
                             <Loader2 className="animate-spin" />
                         ) : editingExistingEvent ? (
-                            'Update Event Details'
+                            'Update Ticket Categories'
                         ) : (
-                            'Save'
+                            'Create Ticket Categories'
                         )}
                     </Button>
                 </CardFooter>

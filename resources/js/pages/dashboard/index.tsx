@@ -35,6 +35,8 @@ type Event = {
     venue_name: string
     description: string
     ticket_category: TicketCategory[]
+    updated_at: string
+    created_at: string
 }
 
 export function Dashboard() {
@@ -105,85 +107,101 @@ export function Dashboard() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {events.map((event) => {
-                                        // Calculate total tickets sold and allocated
-                                        const totalTicketsSold =
-                                            event.ticket_category.reduce(
-                                                (acc, ticketCategory) =>
-                                                    acc +
-                                                    ticketCategory.tickets_sold,
-                                                0,
-                                            )
-                                        const totalTicketsAllocated =
-                                            event.ticket_category.reduce(
-                                                (acc, ticketCategory) =>
-                                                    acc +
-                                                    ticketCategory.tickets_allocated,
-                                                0,
-                                            )
-
-                                        // Calculate total revenue
-                                        const totalRevenue =
-                                            event.ticket_category.reduce(
-                                                (acc, ticketCategory) =>
-                                                    acc +
-                                                    ticketCategory.tickets_sold *
-                                                        ticketCategory.price,
-                                                0,
-                                            )
-                                        const totalPotentialRevenue =
-                                            event.ticket_category.reduce(
-                                                (acc, ticketCategory) =>
-                                                    acc +
-                                                    ticketCategory.tickets_allocated *
-                                                        ticketCategory.price,
-                                                0,
-                                            )
-
-                                        // Calculate progress percentage
-                                        const progressPercentage =
-                                            (totalTicketsSold /
-                                                totalTicketsAllocated) *
-                                            100
-
-                                        return (
-                                            <React.Fragment key={event.id}>
-                                                <TableRow>
-                                                    <TableCell>
-                                                        <div className="text-lg font-medium">
-                                                            {event.name}
-                                                        </div>
-                                                        <div className="text-sm font-medium">
-                                                            {event.venue_name}
-                                                        </div>
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <strong>
-                                                            Tickets Sold:
-                                                        </strong>{' '}
-                                                        {totalTicketsSold} /{' '}
-                                                        {totalTicketsAllocated}
-                                                        <Progress
-                                                            value={
-                                                                progressPercentage
-                                                            }
-                                                        />
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <div>
-                                                            <strong>
-                                                                Total Revenue:
-                                                            </strong>{' '}
-                                                            ${totalRevenue} / $
-                                                            {
-                                                                totalPotentialRevenue
-                                                            }
-                                                        </div>
-                                                    </TableCell>
-                                                </TableRow>
-                                            </React.Fragment>
+                                    {events
+                                        .sort(
+                                            (a, b) =>
+                                                new Date(
+                                                    a.updated_at,
+                                                ).getTime() -
+                                                new Date(
+                                                    b.updated_at,
+                                                ).getTime(),
                                         )
-                                    })}
+                                        .map((event) => {
+                                            // Calculate total tickets sold and allocated
+                                            const totalTicketsSold =
+                                                event.ticket_category.reduce(
+                                                    (acc, ticketCategory) =>
+                                                        acc +
+                                                        ticketCategory.tickets_sold,
+                                                    0,
+                                                )
+                                            const totalTicketsAllocated =
+                                                event.ticket_category.reduce(
+                                                    (acc, ticketCategory) =>
+                                                        acc +
+                                                        ticketCategory.tickets_allocated,
+                                                    0,
+                                                )
+
+                                            // Calculate total revenue
+                                            const totalRevenue =
+                                                event.ticket_category.reduce(
+                                                    (acc, ticketCategory) =>
+                                                        acc +
+                                                        ticketCategory.tickets_sold *
+                                                            ticketCategory.price,
+                                                    0,
+                                                )
+                                            const totalPotentialRevenue =
+                                                event.ticket_category.reduce(
+                                                    (acc, ticketCategory) =>
+                                                        acc +
+                                                        ticketCategory.tickets_allocated *
+                                                            ticketCategory.price,
+                                                    0,
+                                                )
+
+                                            // Calculate progress percentage
+                                            const progressPercentage =
+                                                (totalTicketsSold /
+                                                    totalTicketsAllocated) *
+                                                100
+
+                                            return (
+                                                <React.Fragment key={event.id}>
+                                                    <TableRow>
+                                                        <TableCell>
+                                                            <div className="text-lg font-medium">
+                                                                {event.name}
+                                                            </div>
+                                                            <div className="text-sm font-medium">
+                                                                {
+                                                                    event.venue_name
+                                                                }
+                                                            </div>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <strong>
+                                                                Tickets Sold:
+                                                            </strong>{' '}
+                                                            {totalTicketsSold} /{' '}
+                                                            {
+                                                                totalTicketsAllocated
+                                                            }
+                                                            <Progress
+                                                                value={
+                                                                    progressPercentage
+                                                                }
+                                                            />
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <div>
+                                                                <strong>
+                                                                    Total
+                                                                    Revenue:
+                                                                </strong>{' '}
+                                                                ${totalRevenue}{' '}
+                                                                / $
+                                                                {
+                                                                    totalPotentialRevenue
+                                                                }
+                                                            </div>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                </React.Fragment>
+                                            )
+                                        })}
                                 </TableBody>
                             </Table>
                         </CardContent>

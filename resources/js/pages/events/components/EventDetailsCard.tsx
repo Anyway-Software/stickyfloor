@@ -196,7 +196,7 @@ export function EventDetailsCard({
                         ) : editingExistingEvent ? (
                             'Update Event Details'
                         ) : (
-                            'Save'
+                            'Create Event'
                         )}
                     </Button>
                 </CardFooter>

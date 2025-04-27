@@ -44,6 +44,8 @@ type Event = {
     venue_name: string
     description: string
     ticket_category: TicketCategory[]
+    updated_at: string
+    created_at: string
 }
 
 export function ListEvents() {
@@ -106,163 +108,176 @@ export function ListEvents() {
                                     </TableRow>
                                 </TableHeader>
                                 <TableBody>
-                                    {events.map((event) => {
-                                        const totalRevenue =
-                                            event.ticket_category.reduce(
-                                                (acc, ticketCategory) =>
-                                                    acc +
-                                                    ticketCategory.tickets_sold *
-                                                        ticketCategory.price,
-                                                0,
-                                            )
+                                    {events
+                                        .sort(
+                                            (a, b) =>
+                                                new Date(
+                                                    a.updated_at,
+                                                ).getTime() -
+                                                new Date(
+                                                    b.updated_at,
+                                                ).getTime(),
+                                        )
+                                        .map((event) => {
+                                            const totalRevenue =
+                                                event.ticket_category.reduce(
+                                                    (acc, ticketCategory) =>
+                                                        acc +
+                                                        ticketCategory.tickets_sold *
+                                                            ticketCategory.price,
+                                                    0,
+                                                )
 
-                                        return (
-                                            <React.Fragment key={event.id}>
-                                                <TableRow>
-                                                    <TableCell>
-                                                        <div className="text-lg font-medium">
-                                                            {event.name}
-                                                        </div>
-                                                        <br></br>
-                                                        <div className="text-sm font-medium">
-                                                            {event.venue_name}
-                                                        </div>
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        {event.ticket_category.map(
-                                                            (
-                                                                ticketCategory,
-                                                            ) => (
-                                                                <div
-                                                                    key={
-                                                                        ticketCategory.id
-                                                                    }
-                                                                    className="mb-4"
-                                                                >
-                                                                    <strong>
-                                                                        {
-                                                                            ticketCategory.name
-                                                                        }
-                                                                        :
-                                                                    </strong>
-                                                                    <br />
-                                                                    <strong>
-                                                                        Tickets
-                                                                        Sold:
-                                                                    </strong>{' '}
-                                                                    {
-                                                                        ticketCategory.tickets_sold
-                                                                    }{' '}
-                                                                    /{' '}
-                                                                    {
-                                                                        ticketCategory.tickets_allocated
-                                                                    }
-                                                                    <Progress
-                                                                        value={
-                                                                            (ticketCategory.tickets_sold /
-                                                                                ticketCategory.tickets_allocated) *
-                                                                            100
-                                                                        }
-                                                                        colorScheme="green"
-                                                                        size="sm"
-                                                                    />
+                                            return (
+                                                <React.Fragment key={event.id}>
+                                                    <TableRow>
+                                                        <TableCell>
+                                                            <div className="text-lg font-medium">
+                                                                {event.name}
+                                                            </div>
+                                                            <br></br>
+                                                            <div className="text-sm font-medium">
+                                                                {
+                                                                    event.venue_name
+                                                                }
+                                                            </div>
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            {event.ticket_category.map(
+                                                                (
+                                                                    ticketCategory,
+                                                                ) => (
                                                                     <div
                                                                         key={
                                                                             ticketCategory.id
                                                                         }
                                                                         className="mb-4"
                                                                     >
-                                                                        $
-                                                                        {ticketCategory.tickets_sold *
-                                                                            ticketCategory.price}{' '}
-                                                                        / $
-                                                                        {ticketCategory.tickets_allocated *
-                                                                            ticketCategory.price}
-                                                                    </div>
-                                                                </div>
-                                                            ),
-                                                        )}
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        {event.ticket_category
-                                                            .length > 0
-                                                            ? 'Ready'
-                                                            : 'Draft'}
-                                                    </TableCell>
-                                                    <TableCell>
-                                                        <DropdownMenu>
-                                                            <DropdownMenuTrigger>
-                                                                <Button variant="outline">
-                                                                    ...
-                                                                </Button>
-                                                            </DropdownMenuTrigger>
-                                                            <DropdownMenuContent>
-                                                                <DropdownMenuItem
-                                                                    onClick={() =>
-                                                                        navigate(
+                                                                        <strong>
                                                                             {
-                                                                                to: `/edit_event/${event.id}`,
-                                                                            },
-                                                                        )
-                                                                    }
-                                                                >
-                                                                    Edit
-                                                                </DropdownMenuItem>
-                                                                <DropdownMenuItem
-                                                                    onClick={() =>
-                                                                        api
-                                                                            .delete(
-                                                                                `/events/${event.id}`,
-                                                                            )
-                                                                            .then(
-                                                                                () => {
-                                                                                    setEvents(
-                                                                                        (
-                                                                                            prevEvents,
-                                                                                        ) =>
-                                                                                            prevEvents.filter(
-                                                                                                (
-                                                                                                    e,
-                                                                                                ) =>
-                                                                                                    e.id !==
-                                                                                                    event.id,
-                                                                                            ),
-                                                                                    )
-                                                                                    toast(
-                                                                                        {
-                                                                                            variant:
-                                                                                                'default',
-                                                                                            duration: 3000,
-                                                                                            title: 'Event deleted',
-                                                                                            description: `The event has been successfully deleted.`,
-                                                                                        },
-                                                                                    )
-                                                                                    navigate(
-                                                                                        {
-                                                                                            to: '/events',
-                                                                                        },
-                                                                                    )
+                                                                                ticketCategory.name
+                                                                            }
+                                                                            :
+                                                                        </strong>
+                                                                        <br />
+                                                                        <strong>
+                                                                            Tickets
+                                                                            Sold:
+                                                                        </strong>{' '}
+                                                                        {
+                                                                            ticketCategory.tickets_sold
+                                                                        }{' '}
+                                                                        /{' '}
+                                                                        {
+                                                                            ticketCategory.tickets_allocated
+                                                                        }
+                                                                        <Progress
+                                                                            value={
+                                                                                (ticketCategory.tickets_sold /
+                                                                                    ticketCategory.tickets_allocated) *
+                                                                                100
+                                                                            }
+                                                                            colorScheme="green"
+                                                                            size="sm"
+                                                                        />
+                                                                        <div
+                                                                            key={
+                                                                                ticketCategory.id
+                                                                            }
+                                                                            className="mb-4"
+                                                                        >
+                                                                            $
+                                                                            {ticketCategory.tickets_sold *
+                                                                                ticketCategory.price}{' '}
+                                                                            / $
+                                                                            {ticketCategory.tickets_allocated *
+                                                                                ticketCategory.price}
+                                                                        </div>
+                                                                    </div>
+                                                                ),
+                                                            )}
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            {event
+                                                                .ticket_category
+                                                                .length > 0
+                                                                ? 'Ready'
+                                                                : 'Draft'}
+                                                        </TableCell>
+                                                        <TableCell>
+                                                            <DropdownMenu>
+                                                                <DropdownMenuTrigger>
+                                                                    <Button variant="outline">
+                                                                        ...
+                                                                    </Button>
+                                                                </DropdownMenuTrigger>
+                                                                <DropdownMenuContent>
+                                                                    <DropdownMenuItem
+                                                                        onClick={() =>
+                                                                            navigate(
+                                                                                {
+                                                                                    to: `/edit_event/${event.id}`,
                                                                                 },
-                                                                                (
-                                                                                    error,
-                                                                                ) => {
-                                                                                    console.error(
-                                                                                        'Error deleting event:',
+                                                                            )
+                                                                        }
+                                                                    >
+                                                                        Edit
+                                                                    </DropdownMenuItem>
+                                                                    <DropdownMenuItem
+                                                                        onClick={() =>
+                                                                            api
+                                                                                .delete(
+                                                                                    `/events/${event.id}`,
+                                                                                )
+                                                                                .then(
+                                                                                    () => {
+                                                                                        setEvents(
+                                                                                            (
+                                                                                                prevEvents,
+                                                                                            ) =>
+                                                                                                prevEvents.filter(
+                                                                                                    (
+                                                                                                        e,
+                                                                                                    ) =>
+                                                                                                        e.id !==
+                                                                                                        event.id,
+                                                                                                ),
+                                                                                        )
+                                                                                        toast(
+                                                                                            {
+                                                                                                variant:
+                                                                                                    'default',
+                                                                                                duration: 3000,
+                                                                                                title: 'Event deleted',
+                                                                                                description: `The event has been successfully deleted.`,
+                                                                                            },
+                                                                                        )
+                                                                                        navigate(
+                                                                                            {
+                                                                                                to: '/events',
+                                                                                            },
+                                                                                        )
+                                                                                    },
+                                                                                    (
                                                                                         error,
-                                                                                    )
-                                                                                },
-                                                                            )
-                                                                    }
-                                                                >
-                                                                    Delete
-                                                                </DropdownMenuItem>
-                                                            </DropdownMenuContent>
-                                                        </DropdownMenu>
-                                                    </TableCell>
-                                                </TableRow>
-                                            </React.Fragment>
-                                        )
-                                    })}
+                                                                                    ) => {
+                                                                                        console.error(
+                                                                                            'Error deleting event:',
+                                                                                            error,
+                                                                                        )
+                                                                                    },
+                                                                                )
+                                                                        }
+                                                                    >
+                                                                        Delete
+                                                                    </DropdownMenuItem>
+                                                                </DropdownMenuContent>
+                                                            </DropdownMenu>
+                                                        </TableCell>
+                                                    </TableRow>
+                                                </React.Fragment>
+                                            )
+                                        })}
                                 </TableBody>
                             </Table>
                         </CardContent>
