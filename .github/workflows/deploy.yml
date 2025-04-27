@@ -63,6 +63,12 @@ jobs:
         run: php artisan migrate --force
         working-directory: ${{ env.DEPLOY_PATH }}
 
+      - name: Ensure storage and logs exist
+        run: |
+          mkdir -p storage/logs
+          touch storage/logs/laravel.log
+        working-directory: ${{ env.DEPLOY_PATH }}
+
       - name: Set permissions and clear Laravel cache
         run: |
           sudo chown -R githubrunner:githubrunner storage bootstrap/cache
